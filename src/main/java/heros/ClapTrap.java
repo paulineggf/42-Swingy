@@ -2,45 +2,55 @@ package heros;
 
 class ClapTrap
 {
-
     // Attributes
     private String  name;
+    private String  artefact;
     private Levels  levels;
     private Powers  powers;
 
     // Constructor
-    private ClapTrap(Builder builder)
+    ClapTrap(String name, String artefact, Levels levels, Powers powers)
     {
-        this.name = builder.name;
-        this.levels = builder.levels;
-        this.powers = builder.powers;
+        this.name = name;
+        this.artefact = artefact;
+        this.levels = levels;
+        this.powers = powers;
     }
 
-    // Builder
-    public static class Builder
+    // Getters
+    public String   getName()
     {
-        private String  name;
-        private Levels  levels;
-        private Powers  powers;
-
-        public Builder name(String name)
-        {
-            this.name = name;
-            return this;
-        }
-
-        public Builder levels(Levels levels)
-        {
-            this.levels = levels;
-            return this;
-        }
-
-        public Builder powers(Powers powers)
-        {
-            this.powers = powers;
-            return this;
-        }
+        return name;
     }
 
+    public String   getArtefact()
+    {
+        return artefact;
+    }
+
+    public int      getLevel()
+    {
+        return levels.getLevel();
+    }
+
+    public float    getExperience()
+    {
+        return levels.getExperience();
+    }
+
+    public int      getAttack()
+    {
+        return powers.getAttack();
+    }
+
+    public int      getDefense()
+    {
+        return powers.getDefense();
+    }
+
+    public int      getHitPoints()
+    {
+        return powers.getHitPoints();
+    }
 }
 

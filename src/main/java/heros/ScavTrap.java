@@ -1,11 +1,11 @@
 package heros;
 
-class FragTrap extends ClapTrap implements Hero
+class ScavTrap extends ClapTrap implements Hero
 {
     // Constructor
-    FragTrap(String name, String artefact, Levels levels, Powers powers)
+    ScavTrap(String name, String artefact, Levels levels, Powers powers)
     {
-        super(name, artefact, levels, powers);
+        super(name, artefact,  levels, powers);
     }
 
     // Methods
