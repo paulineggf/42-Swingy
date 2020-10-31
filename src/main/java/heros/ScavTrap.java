@@ -9,13 +9,15 @@ class ScavTrap extends ClapTrap implements Hero
     }
 
     // Methods
-    public void    fight()
+    public void     fight()
     {
         return;
     }
 
-    public void    run()
+    public void     run()
     {
         return;
     }
+
+
 }

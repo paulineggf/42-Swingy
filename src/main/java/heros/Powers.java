@@ -3,9 +3,9 @@ package heros;
 class Powers {
 
     // Attributes
-    private int     attack;
-    private int     defense;
-    private int     hitPoints;
+    int     attack;
+    int     defense;
+    int     hitPoints;
 
     // Constructor
     private Powers(Builder builder)

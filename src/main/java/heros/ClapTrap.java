@@ -3,10 +3,10 @@ package heros;
 class ClapTrap
 {
     // Attributes
-    private String  name;
-    private String  artefact;
-    private Levels  levels;
-    private Powers  powers;
+    protected String  name;
+    protected String  artefact;
+    protected Levels  levels;
+    protected Powers  powers;
 
     // Constructor
     ClapTrap(String name, String artefact, Levels levels, Powers powers)
@@ -52,5 +52,10 @@ class ClapTrap
     {
         return powers.getHitPoints();
     }
-}
 
+    // Methods
+    public void     getDamage(int damage)
+    {
+        powers.hitPoints -= damage + powers.defense;
+    }
+}

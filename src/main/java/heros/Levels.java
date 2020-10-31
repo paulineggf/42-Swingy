@@ -3,8 +3,8 @@ package heros;
 class Levels
 {
     // Attributes
-    private int     level;
-    private float   experience;
+    int     level;
+    float   experience;
 
     // Constructor
     private Levels(Builder builder)
