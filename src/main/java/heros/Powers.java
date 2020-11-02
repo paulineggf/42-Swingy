@@ -1,6 +1,6 @@
 package heros;
 
-class Powers {
+public class Powers {
 
     // Attributes
     int     attack;

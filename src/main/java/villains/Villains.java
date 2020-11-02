@@ -1,8 +1,15 @@
 package villains;
-import  heros.*;
 
-public interface    Villains
+public class Villains
 {
-    public void attack(Hero hero);
-    public void getDamage(int damage);
+    // Attributes
+    private int     hitPoints;
+    private int     attack;
+
+    // Constructor
+    Villains(int hitPoints, int attack)
+    {
+        this.hitPoints = hitPoints;
+        this.attack = attack;
+    }
 }

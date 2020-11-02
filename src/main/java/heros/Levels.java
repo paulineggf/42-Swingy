@@ -1,6 +1,6 @@
 package heros;
 
-class Levels
+public class Levels
 {
     // Attributes
     int     level;

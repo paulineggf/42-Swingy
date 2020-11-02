@@ -1,6 +1,6 @@
 package heros;
 
-class FragTrap extends ClapTrap implements Hero
+public class FragTrap extends ClapTrap implements IHero
 {
     // Constructor
     FragTrap(String name, String artefact, Levels levels, Powers powers)

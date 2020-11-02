@@ -1,12 +1,16 @@
 package heros;
 
-class ClapTrap
+import heros.IClapTrap;
+import heros.Levels;
+import heros.Powers;
+
+public class ClapTrap implements IClapTrap
 {
     // Attributes
     protected String  name;
     protected String  artefact;
-    protected Levels  levels;
-    protected Powers  powers;
+    protected Levels levels;
+    protected Powers powers;
 
     // Constructor
     ClapTrap(String name, String artefact, Levels levels, Powers powers)
@@ -56,6 +60,7 @@ class ClapTrap
     // Methods
     public void     getDamage(int damage)
     {
+        System.out.println(name + " loose " + (damage - powers.defense) + "...");
         powers.hitPoints -= damage + powers.defense;
     }
 }

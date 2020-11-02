@@ -1,6 +1,6 @@
 package heros;
 
-class ScavTrap extends ClapTrap implements Hero
+class ScavTrap extends ClapTrap implements IHero
 {
     // Constructor
     ScavTrap(String name, String artefact, Levels levels, Powers powers)
@@ -18,6 +18,5 @@ class ScavTrap extends ClapTrap implements Hero
     {
         return;
     }
-
 
 }

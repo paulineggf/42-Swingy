@@ -1,9 +1,8 @@
 package heros;
 
-public interface Hero
+public interface IHero extends IClapTrap
 {
     // Methods
     void    fight();
     void    run();
-    void    getDamage(int damage);
 }

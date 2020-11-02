@@ -1,21 +1,20 @@
 package villains;
-import  heros.*;
+import heros.IHero;
 
-public class Villains1 implements Villains
+public class Zombie extends Villains implements IVillain
 {
     // Attributes
     private int     hitPoints;
     private int     attack;
 
     // Constructor
-    Villains1()
+    Zombie(int hitPoints, int attack)
     {
-        hitPoints = 200;
-        attack = 20;
+        super(200, 20);
     }
 
     // Methods
-    public void     attack(Hero hero)
+    public void     attack(IHero hero)
     {
         hero.getDamage(attack);
     }
