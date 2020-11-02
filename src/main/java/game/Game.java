@@ -8,8 +8,7 @@ import java.io.*;
 
 public class Game
 {
-    public static void  main(String[] args)
-    {
+    public static void  main(String[] args) throws ClassNotFoundException {
         int gamerChoice;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -17,8 +16,9 @@ public class Game
         {
             gamerChoice = 0;
             IHero hero;
-            while (gamerChoice != 1 || gamerChoice != 2)
+            while (gamerChoice != 1 && gamerChoice != 2)
             {
+                System.out.println("Gamer choice: " + gamerChoice);
                 System.out.println("Welcome to Swingy!");
                 System.out.println("1. New game");
                 System.out.println("2. Load save game");
@@ -26,7 +26,7 @@ public class Game
                 if (gamerChoice == 1)
                     hero = newGame();
                 else if (gamerChoice == 2)
-                    loadGames();
+                    hero = loadGames();
                 else
                     System.out.println("Please try again");
             }
@@ -38,7 +38,7 @@ public class Game
         }
     }
 
-    private static IHero    newGame()
+    private static IHero    newGame() throws FileNotFoundException, IOException, ClassNotFoundException
     {
         String type;
         String artefact;
@@ -83,7 +83,7 @@ public class Game
             name = br.readLine();
 
             hero = clapTrapFactory.newClapTrap(type, name, artefact);
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(name + ".txt"));
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("name.txt"));
             out.writeObject(hero);
             return hero;
 
@@ -95,8 +95,10 @@ public class Game
         return null;
     }
 
-    private static void    loadGames()
-    {
-        return ;
+    private static IHero    loadGames() throws FileNotFoundException, IOException, ClassNotFoundException {
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream("name.txt"));
+        IHero hero = (IHero) in.readObject();
+        System.out.println(hero.getName());
+        return hero;
     }
 }

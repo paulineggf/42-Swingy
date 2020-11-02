@@ -1,6 +1,8 @@
 package heros;
 
-public class Levels
+import java.io.Serializable;
+
+public class Levels implements Serializable
 {
     // Attributes
     int     level;

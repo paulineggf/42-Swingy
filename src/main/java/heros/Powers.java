@@ -1,6 +1,9 @@
 package heros;
 
-public class Powers {
+import java.io.Serializable;
+
+public class Powers implements Serializable
+{
 
     // Attributes
     int     attack;

@@ -1,6 +1,5 @@
 package villains;
 import heros.IHero;
-import org.jetbrains.annotations.NotNull;
 
 public class Vampire extends Villains implements IVillain
 {
@@ -15,7 +14,7 @@ public class Vampire extends Villains implements IVillain
     }
 
     // Methods
-    public void     attack(@NotNull IHero hero)
+    public void     attack(IHero hero)
     {
         System.out.println("Vampire bites " + hero.getName());
         hero.getDamage(attack);

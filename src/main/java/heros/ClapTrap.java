@@ -4,7 +4,9 @@ import heros.IClapTrap;
 import heros.Levels;
 import heros.Powers;
 
-public class ClapTrap implements IClapTrap
+import java.io.Serializable;
+
+public class ClapTrap implements IClapTrap, Serializable
 {
     // Attributes
     protected String  name;
