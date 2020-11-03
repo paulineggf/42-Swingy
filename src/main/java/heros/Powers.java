@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Powers implements Serializable
 {
+    private static final long   serialVersionUID = 1L;
 
     // Attributes
     int     attack;

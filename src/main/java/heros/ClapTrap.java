@@ -8,6 +8,8 @@ import java.io.Serializable;
 
 public class ClapTrap implements IClapTrap, Serializable
 {
+    private static final long   serialVersionUID = 1L;
+
     // Attributes
     protected String  name;
     protected String  artefact;

@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Levels implements Serializable
 {
+    private static final long   serialVersionUID = 1L;
+
     // Attributes
     int     level;
     float   experience;
