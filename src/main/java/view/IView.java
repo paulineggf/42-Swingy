@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public interface IView {
-    int     init();
+    int     init() throws IOException;
     String  chooseClapTrap() throws IOException;
     String  chooseArtefact() throws IOException;
     String  chooseName() throws IOException;

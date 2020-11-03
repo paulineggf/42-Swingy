@@ -2,7 +2,7 @@ package model.heros;
 
 public class ClapTrapFactory
 {
-    public IHero newClapTrap(String type, String name, String artefact)
+    public static IHero newClapTrap(String type, String name, String artefact)
     {
         int attack;
         int defense;

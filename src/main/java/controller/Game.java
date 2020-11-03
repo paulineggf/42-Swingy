@@ -44,17 +44,15 @@ public class Game
 
     private static IHero    newGame() throws FileNotFoundException, IOException, ClassNotFoundException
     {
-        String type;
-        String artefact;
-        String name;
-        ClapTrapFactory clapTrapFactory = new ClapTrapFactory();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        IHero hero;
+        String  type;
+        String  artefact;
+        String  name;
+        IHero   hero;
 
         type = game.chooseClapTrap();
         artefact = game.chooseArtefact();
         name = game.chooseName();
-        hero = clapTrapFactory.newClapTrap(type, name, artefact);
+        hero = ClapTrapFactory.newClapTrap(type, name, artefact);
 
         // Save data
         try {
