@@ -55,7 +55,6 @@ public class Console implements IView {
         System.out.println("Choose an artefact");
         System.out.println("+------------+------------+------------+------------+");
         System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Artefact", "Attack", "Defense", "Hit Points");
-        System.out.println("+------------+------------+------------+------------+");
         System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Weapon", "+20", "0", "0");
         System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Armor", "0", "+20", "0");
         System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Helm", "0", "0", "+20");
@@ -82,10 +81,12 @@ public class Console implements IView {
         String name;
 
         System.out.println("Choose a ClapTrap");
+        System.out.println("+------------+------------+------------+------------+------------+------------+------------+------------+");
+        System.out.printf("| %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s |\n", "Name", "Type", "Level", "Experience", "Artefact", "Attack", "Defense", "Hit Points");
         for (IHero hero: heroSave) {
-            System.out.println("Name      " + " type    " + " level " + " experience " + "Weapon   " + " attack " + " defense " + " hit points ");
-            System.out.println(hero.getName() + " " + hero.getType() + " " + hero.getLevel() + " " + hero.getExperience() + " " + hero.getArtefact() + " " + hero.getAttack() + " " + hero.getDefense() + " " + hero.getHitPoints());
+            System.out.printf("| %-10.10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s |\n", hero.getName(), hero.getType(), hero.getLevel(), hero.getExperience(), hero.getArtefact(), hero.getAttack(), hero.getDefense(), hero.getHitPoints());
         }
+        System.out.println("+------------+------------+------------+------------+------------+------------+------------+------------+");
         while (true) {
             name = br.readLine();
             for (IHero hero: heroSave) {
