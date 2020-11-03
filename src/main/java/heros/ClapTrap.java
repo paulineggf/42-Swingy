@@ -4,6 +4,8 @@ import heros.IClapTrap;
 import heros.Levels;
 import heros.Powers;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class ClapTrap implements IClapTrap, Serializable
@@ -11,6 +13,9 @@ public class ClapTrap implements IClapTrap, Serializable
     private static final long   serialVersionUID = 1L;
 
     // Attributes
+    @NotNull
+    @Size(min=2, max=10)
+    //@Column(name= "name", unique = true)
     protected String  name;
     protected String  artefact;
     protected Levels levels;

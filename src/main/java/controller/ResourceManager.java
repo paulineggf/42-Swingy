@@ -1,4 +1,4 @@
-package game;
+package controller;
 
 import heros.IHero;
 
@@ -9,15 +9,13 @@ import java.nio.file.Files;
 import java.io.Serializable;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ResourceManager
 {
     public static void      save(Serializable data, String fileName) throws Exception
     {
         File tmpDir = new File(fileName);
-        boolean exists = tmpDir.exists();
-        if (exists)
+        if (tmpDir.exists())
         {
             try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(Paths.get(fileName)))) {
                 ArrayList<IHero> heroSave = (ArrayList<IHero>)ois.readObject();
@@ -40,8 +38,7 @@ public class ResourceManager
     public static ArrayList<IHero>    load(String fileName) throws Exception
     {
         File tmpDir = new File(fileName);
-        boolean exists = tmpDir.exists();
-        if (exists)
+        if (tmpDir.exists())
         {
             try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(Paths.get(fileName)))) {
                 return (ArrayList<IHero>) ois.readObject();
