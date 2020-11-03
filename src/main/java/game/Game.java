@@ -52,10 +52,14 @@ public class Game
         try
         {
             System.out.println("Choose a ClapTrap");
-            System.out.println("Type      " + " attack " + " defense " + " hit points ");
-            System.out.println("FragTrap  " + " 30     " + " 10      " + " 100        ");
-            System.out.println("ScavTrap  " + " 20     " + " 20      " + " 100        ");
-            System.out.println("NinjaTrap " + " 60     " + " 30      " + " 60         ");
+            System.out.println("+------------+------------+------------+------------+");
+            System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Type", "Attack", "Defense", "Hit Points");
+            System.out.println("+------------+------------+------------+------------+");
+            System.out.printf("| %-10s | %-10d | %-10d | %-10d |\n", "FragTrap", 30, 10, 100);
+            System.out.printf("| %-10s | %-10d | %-10d | %-10d |\n", "ScavTrap", 20, 20, 100);
+            System.out.printf("| %-10s | %-10d | %-10d | %-10d |\n", "NinjaTrap", 60, 30, 60);
+            System.out.println("+------------+------------+------------+------------+");
+
 
             type = null;
             while (true)
@@ -67,10 +71,13 @@ public class Game
             }
 
             System.out.println("Choose an artefact");
-            System.out.println("             " + " attack " + " defense " + " hit points ");
-            System.out.println("1. Weapon    " + " +20    " + " 0       " + " 0          ");
-            System.out.println("2. Armor     " + " 0      " + " +20     " + " 0          ");
-            System.out.println("3. Helm      " + " 0      " + " 0       " + " +20        ");
+            System.out.println("+------------+------------+------------+------------+");
+            System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Artefact", "Attack", "Defense", "Hit Points");
+            System.out.println("+------------+------------+------------+------------+");
+            System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Weapon", "+20", "0", "0");
+            System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Armor", "0", "+20", "0");
+            System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Helm", "0", "0", "+20");
+            System.out.println("+------------+------------+------------+------------+");
 
             artefact = null;
             while (true)
@@ -113,7 +120,7 @@ public class Game
                         if (name.equals(hero.getName()))
                             return hero;
                     }
-                    System.out.println("Don't know this character, please try again");
+                    System.out.println("This character doesn't exist, please try again");
                 }
             }
             else
