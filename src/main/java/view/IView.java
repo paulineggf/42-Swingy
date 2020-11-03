@@ -1,6 +1,6 @@
 package view;
 
-import heros.IHero;
+import model.heros.IHero;
 
 import java.io.IOException;
 import java.util.ArrayList;

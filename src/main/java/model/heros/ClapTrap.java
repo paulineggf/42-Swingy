@@ -1,8 +1,4 @@
-package heros;
-
-import heros.IClapTrap;
-import heros.Levels;
-import heros.Powers;
+package model.heros;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

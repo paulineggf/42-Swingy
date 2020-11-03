@@ -1,22 +1,21 @@
-package villains;
-import heros.IHero;
+package model.villains;
+import model.heros.IHero;
 
-public class Vampire extends Villains implements IVillain
+public class Zombie extends Villains implements IVillain
 {
     // Attributes
     private int     hitPoints;
     private int     attack;
 
     // Constructor
-    Vampire(int hitPoints, int attack)
+    Zombie(int hitPoints, int attack)
     {
-        super(120, 30);
+        super(200, 20);
     }
 
     // Methods
     public void     attack(IHero hero)
     {
-        System.out.println("Vampire bites " + hero.getName());
         hero.getDamage(attack);
     }
 
@@ -25,6 +24,3 @@ public class Vampire extends Villains implements IVillain
         hitPoints -= damage;
     }
 }
-
-
-

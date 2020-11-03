@@ -1,6 +1,6 @@
 package controller;
 
-import heros.IHero;
+import model.heros.IHero;
 
 import java.io.File;
 import java.io.ObjectInputStream;

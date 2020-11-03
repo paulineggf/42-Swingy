@@ -1,5 +1,5 @@
-package villains;
-import heros.IHero;
+package model.villains;
+import model.heros.IHero;
 
 public interface IVillain
 {

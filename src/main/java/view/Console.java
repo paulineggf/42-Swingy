@@ -1,7 +1,6 @@
 package view;
 
-import heros.ClapTrapFactory;
-import heros.IHero;
+import model.heros.IHero;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,55 +33,57 @@ public class Console implements IView {
 
     public String   chooseClapTrap() throws IOException {
         String type;
-        String artefact;
-        String name;
-        ClapTrapFactory clapTrapFactory = new ClapTrapFactory();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        IHero hero;
-
-        System.out.println("Choose a ClapTrap");
-        System.out.println("+------------+------------+------------+------------+");
-        System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Type", "Attack", "Defense", "Hit Points");
-        System.out.println("+------------+------------+------------+------------+");
-        System.out.printf("| %-10s | %-10d | %-10d | %-10d |\n", "FragTrap", 30, 10, 100);
-        System.out.printf("| %-10s | %-10d | %-10d | %-10d |\n", "ScavTrap", 20, 20, 100);
-        System.out.printf("| %-10s | %-10d | %-10d | %-10d |\n", "NinjaTrap", 60, 30, 60);
-        System.out.println("+------------+------------+------------+------------+");
-
         type = null;
-        while (true)
-        {
-            type = br.readLine();
-            if (type.equals("FragTrap") || type.equals("ScavTrap") || type.equals("NinjaTrap"))
-                break;
-            System.out.println("Please try again");
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            System.out.println("Choose a ClapTrap");
+            System.out.println("+------------+------------+------------+------------+");
+            System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Type", "Attack", "Defense", "Hit Points");
+            System.out.println("+------------+------------+------------+------------+");
+            System.out.printf("| %-10s | %-10d | %-10d | %-10d |\n", "FragTrap", 30, 10, 100);
+            System.out.printf("| %-10s | %-10d | %-10d | %-10d |\n", "ScavTrap", 20, 20, 100);
+            System.out.printf("| %-10s | %-10d | %-10d | %-10d |\n", "NinjaTrap", 60, 30, 60);
+            System.out.println("+------------+------------+------------+------------+");
+
+            while (true) {
+                type = br.readLine();
+                if (type.equals("FragTrap") || type.equals("ScavTrap") || type.equals("NinjaTrap"))
+                    break;
+                System.out.println("Please try again");
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
         }
         return type;
     }
 
     public String   chooseArtefact() throws IOException {
         String artefact;
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        System.out.println("Choose an artefact");
-        System.out.println("+------------+------------+------------+------------+");
-        System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Artefact", "Attack", "Defense", "Hit Points");
-        System.out.println("+------------+------------+------------+------------+");
-        System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Weapon", "+20", "0", "0");
-        System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Armor", "0", "+20", "0");
-        System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Helm", "0", "0", "+20");
-        System.out.println("+------------+------------+------------+------------+");
 
         artefact = null;
-        while (true)
-        {
-            artefact = br.readLine();
-            if (artefact.equals("Weapon") || artefact.equals("Armor") || artefact.equals("Helm"))
-                break;
-            System.out.println("Please try again");
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+
+            System.out.println("Choose an artefact");
+            System.out.println("+------------+------------+------------+------------+");
+            System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Artefact", "Attack", "Defense", "Hit Points");
+            System.out.println("+------------+------------+------------+------------+");
+            System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Weapon", "+20", "0", "0");
+            System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Armor", "0", "+20", "0");
+            System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Helm", "0", "0", "+20");
+            System.out.println("+------------+------------+------------+------------+");
+
+            while (true) {
+                artefact = br.readLine();
+                if (artefact.equals("Weapon") || artefact.equals("Armor") || artefact.equals("Helm"))
+                    break;
+                System.out.println("Please try again");
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
         }
         return artefact;
-
     }
 
     public String   chooseName() throws IOException {

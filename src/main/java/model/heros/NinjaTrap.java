@@ -1,16 +1,16 @@
-package heros;
+package model.heros;
 
 import java.io.Serializable;
 
-class FragTrap extends ClapTrap implements IHero, Serializable
+class NinjaTrap extends ClapTrap implements IHero, Serializable
 {
     private static final long   serialVersionUID = 1L;
 
     // Attributes
-    private String  type = "FragTrap";
+    private String  type = "NinjaTrap";
 
     // Constructor
-    FragTrap(String name, String artefact, Levels levels, Powers powers)
+    NinjaTrap(String name, String artefact, Levels levels, Powers powers)
     {
         super(name, artefact, levels, powers);
     }

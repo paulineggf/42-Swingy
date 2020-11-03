@@ -1,4 +1,4 @@
-package heros;
+package model.heros;
 
 public class ClapTrapFactory
 {

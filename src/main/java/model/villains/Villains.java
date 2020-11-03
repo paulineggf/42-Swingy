@@ -1,4 +1,4 @@
-package villains;
+package model.villains;
 
 public class Villains
 {

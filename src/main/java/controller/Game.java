@@ -1,7 +1,7 @@
 package controller;
 
-import heros.ClapTrapFactory;
-import heros.IHero;
+import model.heros.ClapTrapFactory;
+import model.heros.IHero;
 import view.Console;
 import view.IView;
 
