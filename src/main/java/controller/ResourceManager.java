@@ -1,5 +1,6 @@
 package controller;
 
+import model.game.Game;
 import model.heros.IHero;
 
 import java.io.File;
@@ -18,30 +19,30 @@ public class ResourceManager
         if (tmpDir.exists())
         {
             try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(Paths.get(fileName)))) {
-                ArrayList<IHero> heroSave = (ArrayList<IHero>)ois.readObject();
-                heroSave.add((IHero) data);
+                ArrayList<Game> game = (ArrayList<Game>)ois.readObject();
+                game.add((Game) data);
                 try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(Paths.get(fileName)))) {
-                    oos.writeObject(heroSave);
+                    oos.writeObject(game);
                 }
             }
         }
         else
         {
-            ArrayList<IHero> heroSave = new ArrayList<IHero>();
-            heroSave.add((IHero) data);
+            ArrayList<Game> game = new ArrayList<Game>();
+            game.add((Game) data);
             try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(Paths.get(fileName)))) {
-                oos.writeObject(heroSave);
+                oos.writeObject(game);
             }
         }
     }
 
-    public static ArrayList<IHero>    load(String fileName) throws Exception
+    public static ArrayList<Game>    load(String fileName) throws Exception
     {
         File tmpDir = new File(fileName);
         if (tmpDir.exists())
         {
             try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(Paths.get(fileName)))) {
-                return (ArrayList<IHero>) ois.readObject();
+                return (ArrayList<Game>) ois.readObject();
             }
         }
         else

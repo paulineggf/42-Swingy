@@ -2,7 +2,7 @@ package model.villains;
 
 import model.heros.IHero;
 
-public class Villains
+public class Villains implements IVillains
 {
     // Attributes
     protected int     hitPoints;

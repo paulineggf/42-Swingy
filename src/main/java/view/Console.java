@@ -77,20 +77,20 @@ public class Console implements IView {
         return name;
     }
 
-    public String     displayCharacters(ArrayList<IHero> heroSave) throws IOException {
+    public String     displayCharacters(ArrayList<Game> saveGames) throws IOException {
         String name;
 
         System.out.println("Choose a ClapTrap");
         System.out.println("+------------+------------+------------+------------+------------+------------+------------+------------+");
         System.out.printf("| %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s |\n", "Name", "Type", "Level", "Experience", "Artefact", "Attack", "Defense", "Hit Points");
-        for (IHero hero: heroSave) {
-            System.out.printf("| %-10.10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s |\n", hero.getName(), hero.getType(), hero.getLevel(), hero.getExperience(), hero.getArtefact(), hero.getAttack(), hero.getDefense(), hero.getHitPoints());
+        for (Game saveGame: saveGames) {
+            System.out.printf("| %-10.10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s |\n", saveGame.hero.getName(), saveGame.hero.getType(), saveGame.hero.getLevel(), saveGame.hero.getExperience(), saveGame.hero.getArtefact(), saveGame.hero.getAttack(), saveGame.hero.getDefense(), saveGame.hero.getHitPoints());
         }
         System.out.println("+------------+------------+------------+------------+------------+------------+------------+------------+");
         while (true) {
             name = br.readLine();
-            for (IHero hero: heroSave) {
-                if (name.equals(hero.getName()))
+            for (Game saveGame: saveGames) {
+                if (name.equals(saveGame.hero.getName()))
                     return name;
             }
             System.out.println("This character doesn't exist, please try again");
@@ -169,17 +169,60 @@ public class Console implements IView {
 
     public void     heroAttack(IHero hero, IVillain villain)
     {
-        System.out.println(hero.getName() + " attack " + villain.getType() + "!");
-        System.out.println(villain.getType() + " loose " + hero.getAttack() + " hit points.");
-        System.out.println(hero.getName() + " hit points: " + hero.getHitPoints());
-        System.out.println(villain.getType() + " hit points: " + villain.getType());
+        System.out.println(hero.getName() + " attack the " + villain.getType() + "!");
+        System.out.println("The " + villain.getType() + " loose " + hero.getAttack() + " hit points.");
     }
 
     public void     villainAttack(IHero hero, IVillain villain)
     {
-        System.out.println(villain.getType() + " attack " + hero.getName() + "!");
+        System.out.println("The " + villain.getType() + " attack " + hero.getName() + "!");
         System.out.println(hero.getName() + " loose " + (villain.getAttack() - hero.getDefense()) + " hit points.");
+    }
+
+    public void     getHitPoints(IHero hero, IVillain villain)
+    {
         System.out.println(hero.getName() + " hit points: " + hero.getHitPoints());
-        System.out.println(villain.getType() + " hit points: " + villain.getType());
+        System.out.println(villain.getType() + " hit points: " + villain.getHitPoints());
+        System.out.print("\n");
+    }
+
+    public int      continueToFightOrRun() throws IOException {
+        String choice;
+
+        System.out.println("Would you like to continue to fight (1) or run (2) ?");
+        choice = "";
+        while (choice.equals("") || (choice.equals("1") == false && choice.equals("2") == false))
+            choice = br.readLine();
+        return Integer.parseInt(choice);
+    }
+
+    public void     gameOver(IHero hero)
+    {
+        System.out.println(hero.getName() + " loose the game :(");
+    }
+
+    public void     levelUp(IHero hero)
+    {
+        System.out.println(hero.getName() + " is level up to level " + hero.getLevel() + "!");
+    }
+
+    public void     wonMap(IHero hero)
+    {
+        System.out.println(hero.getName() + " won the map!");
+    }
+
+    public int      saveContinueMenuExit() throws IOException {
+        String choice;
+
+        System.out.println("Would you like to:\n" +
+                           "1/ Continue the game\n" +
+                           "2/ Save the game\n" +
+                           "3/ Go back to the main menu\n" +
+                           "4/ Quit");
+        choice = "";
+        while (choice.equals("") || (choice.equals("1") == false && choice.equals("2") == false
+                && choice.equals("3") == false && choice.equals("4") == false))
+            choice = br.readLine();
+        return Integer.parseInt(choice);
     }
 }

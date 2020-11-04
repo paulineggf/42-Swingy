@@ -1,14 +1,14 @@
 package model.heros;
 
-import model.villains.IVillain;
+import model.villains.IVillains;
 
 import java.io.Serializable;
 
 public interface IHero extends IClapTrap, Serializable
 {
     // Getters
-    String   getType();
+    String      getType();
 
     // Methods
-    void attack(IVillain villain);
+    void        attack(IVillains villain);
 }

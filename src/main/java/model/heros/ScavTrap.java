@@ -20,16 +20,4 @@ class ScavTrap extends ClapTrap implements IHero, Serializable
     {
         return type;
     }
-
-    // Methods
-    public void     fight()
-    {
-        return;
-    }
-
-    public void     run()
-    {
-        return;
-    }
-
 }

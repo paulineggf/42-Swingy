@@ -8,7 +8,7 @@ public class Levels implements Serializable
 
     // Attributes
     int     level;
-    float XP;
+    float   XP;
 
     // Constructor
     private Levels(Builder builder)

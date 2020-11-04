@@ -1,9 +1,12 @@
 package controller;
 
 import model.game.Game;
+import model.game.MyMap;
+import model.game.MyPosition;
 import model.heros.ClapTrapFactory;
 import model.heros.IHero;
 import model.villains.IVillain;
+import model.villains.IVillains;
 import model.villains.VillainsFactory;
 import view.Console;
 import view.IView;
@@ -22,6 +25,15 @@ public class Main
     private static final int    FIGHT = 1;
     private static final int    RUN = 2;
 
+    private static final int    PROGRESS = 0;
+    private static final int    WON = 1;
+    private static final int    WONMAP = 2;
+    private static final int    GAMEOVER = 3;
+
+    private static final int    CONTINUE = 1;
+    private static final int    SAVE = 2;
+    private static final int    MENU = 3;
+    private static final int    EXIT = 4;
 
     // Attributes
     private static IView view;
@@ -30,7 +42,8 @@ public class Main
 
     // Methods
     public static void      main(String[] args) throws Exception {
-        int gamerChoice;
+        int     gamerChoice;
+        Game    newGame;
 
         IView chooseView = null;
         if (args[0].equals("console")) {
@@ -46,11 +59,39 @@ public class Main
         view = chooseView;
         view.rules();
         gamerChoice = view.init();
-        IHero hero = heroChoice(gamerChoice);
-        launchGame(hero);
+        game = heroChoice(gamerChoice);
+        while (true)
+        {
+            System.out.println("CONTINUE");
+            launchGame();
+            gamerChoice = view.saveContinueMenuExit();
+            if (gamerChoice == CONTINUE)
+                continue;
+            else if (gamerChoice == SAVE)
+                saveGame();
+            else if (gamerChoice == MENU)
+            {
+                view.rules();
+                gamerChoice = view.init();
+                game = heroChoice(gamerChoice);
+            }
+            else if (gamerChoice == EXIT)
+                System.exit(0);
+        }
     }
 
-    private static IHero     heroChoice(int gamerChoice) throws Exception {
+    private static void     saveGame()
+    {
+        // Save data
+        try {
+            ResourceManager.save((Serializable) game, "./src/main/data/save");
+        }
+        catch (Exception e) {
+            System.err.println("Couldn't load save data " + e.getMessage());
+        }
+    }
+
+    private static Game    heroChoice(int gamerChoice) throws Exception {
         IHero   hero;
 
         if (gamerChoice == 1)
@@ -60,7 +101,7 @@ public class Main
         return null;
     }
 
-    private static IHero    newGame() throws FileNotFoundException, IOException, ClassNotFoundException
+    private static Game    newGame() throws FileNotFoundException, IOException, ClassNotFoundException
     {
         String  type;
         String  artefact;
@@ -72,26 +113,19 @@ public class Main
         name = view.chooseName();
         hero = ClapTrapFactory.newClapTrap(type, name, artefact);
 
-        // Save data
-        try {
-            ResourceManager.save((Serializable) hero, "./src/main/data/save");
-        }
-        catch (Exception e) {
-            System.err.println("Couldn't load save data " + e.getMessage());
-        }
-        return hero;
+        return new Game(hero);
     }
 
-    private static IHero    loadGame() throws Exception {
+    private static Game    loadGame() throws Exception {
         try {
             String name;
-            ArrayList<IHero> heroSave = new ArrayList<IHero>();
-            heroSave = (ArrayList<IHero>)ResourceManager.load("./src/main/data/save");
-            if (heroSave != null) {
-                name = view.displayCharacters(heroSave);
-                for (IHero hero: heroSave) {
-                    if (name.equals(hero.getName()))
-                        return hero;
+            ArrayList<Game> saveGames = new ArrayList<Game>();
+            saveGames = (ArrayList<Game>)ResourceManager.load("./src/main/data/save");
+            if (saveGames != null) {
+                name = view.displayCharacters(saveGames);
+                for (Game saveGame: saveGames) {
+                    if (name.equals(saveGame.hero.getName()))
+                        return saveGame;
                 }
             }
             else
@@ -103,29 +137,47 @@ public class Main
         return null;
     }
 
-    private static void     launchGame(IHero hero) throws IOException {
-        Game        newGame = new Game(hero);
-        int         moveHero;
-        int         villain;
-        IVillain    newVillain;
+    private static void     launchGame() throws IOException {
+        int moveHero;
+        int villain;
+        IVillain newVillain;
 
-        game = newGame;
+        newVillain = null;
+        game.resetMap();
         view.displayMap(game, null);
-        while (true)
-        {
+        game.game = PROGRESS;
+        while (game.game == PROGRESS) {
+            if (newVillain != null) {
+                view.displayMap(game, newVillain);
+            }
             newVillain = null;
             moveHero = view.moveHero(game);
-            if (moveHero != NORTH && moveHero != SOUTH && moveHero != WEST && moveHero != EAST)
+            if (moveHero != NORTH && moveHero != SOUTH && moveHero != WEST && moveHero != EAST) {
                 continue;
+            }
             game.moveHero(moveHero);
             villain = villainsRandom();
             System.out.println(villain);
-            if (villain != 0)
+            if (villain != 0) {
                 newVillain = VillainsFactory.newVillain(villain);
+            }
             view.displayMap(game, newVillain);
-            if (villain != 0)
+            if (villain != 0) {
                 launchFight(newVillain);
+            }
+            if (isEscape()) {
+                view.wonMap(game.hero);
+                game.game = WONMAP;
+            }
         }
+    }
+
+    private static boolean  isEscape()
+    {
+        if (game.pos.getX() == 0 || game.pos.getX() + 1 == game.map.getX()
+            || game.pos.getY() == 0 || game.pos.getY() + 1 == game.map.getY())
+            return true;
+        return false;
     }
 
     private static int      villainsRandom()
@@ -156,15 +208,42 @@ public class Main
         return random;
     }
 
-    private static void      launchBattle(IVillain villain) {
-        while (game.hero.getHitPoints() > 0 && villain.getHitPoints() > 0)
+    private static void      launchBattle(IVillain villain) throws IOException {
+        int     gamerChoice;
+
+        while (true)
         {
             view.heroAttack(game.hero, villain);
             game.hero.attack(villain);
-            view.villainAttack(game.hero, villain);
-            villain.attack(game.hero);
+            view.getHitPoints(game.hero, villain);
+
+            if (game.hero.getHitPoints() > 0 && villain.getHitPoints() > 0) {
+                view.villainAttack(game.hero, villain);
+                villain.attack(game.hero);
+                view.getHitPoints(game.hero, villain);
+            }
+            else
+                break;
+
+            gamerChoice = view.continueToFightOrRun();
+            if (gamerChoice == RUN)
+                gamerChoice = randomFight();
+            if (gamerChoice == RUN)
+            {
+                view.runAway();
+                break;
+            }
+            else
+                view.forceToFight();
+
         }
-     //   if (game.hero.getHitPoints() <= 0)
-       //     view.gameOver();
+        if (game.hero.getHitPoints() <= 0)
+        {
+            view.gameOver(game.hero);
+            game.game = GAMEOVER;
+        }
+        else if (game.experienceUp(villain) == true)
+            view.levelUp(game.hero);
+
     }
 }

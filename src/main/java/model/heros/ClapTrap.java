@@ -1,9 +1,7 @@
 package model.heros;
 
-import model.villains.IVillain;
+import model.villains.IVillains;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class ClapTrap implements IClapTrap, Serializable
@@ -78,7 +76,7 @@ public class ClapTrap implements IClapTrap, Serializable
         powers.hitPoints -= damage + powers.defense;
     }
 
-    public void     attack(IVillain villain)
+    public void     attack(IVillains villain)
     {
         villain.getDamage(powers.attack);
     }

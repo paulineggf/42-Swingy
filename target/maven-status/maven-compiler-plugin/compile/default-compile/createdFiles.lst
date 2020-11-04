@@ -1,4 +1,5 @@
 model/game/MyPosition.class
+model/villains/IVillains.class
 model/heros/NinjaTrap.class
 model/heros/FragTrap.class
 model/game/MyMap.class

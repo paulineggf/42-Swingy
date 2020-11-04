@@ -1,37 +1,63 @@
 package model.game;
 
 import model.heros.IHero;
+import model.villains.IVillains;
 import model.villains.Villains;
 
-public class Game {
+import java.io.Serializable;
+
+public class Game implements Serializable {
+    private static final long   serialVersionUID = 1L;
+
     // Enums
     private static final int    NORTH = 8;
     private static final int    SOUTH = 2;
     private static final int    EAST = 6;
     private static final int    WEST = 4;
 
+    private static final int    PROGRESS = 0;
+    private static final int    LEVELUP = 1;
+    private static final int    WON = 2;
+    private static final int    GAMEOVER = 3;
+
     // Attributes
     public  IHero       hero;
     public  MyMap       map;
     public  MyPosition  pos;
 
+    public  int         game;
+
     // Constructor
     public Game(IHero hero)
     {
         this.hero = hero;
-        this.map = new MyMap(setMap());
-        this.pos = new MyPosition(setPos());
+        this.map = new MyMap(initMap());
+        this.pos = new MyPosition(initPos());
+        this.game = PROGRESS;
     }
 
     // Methods
-    private int     setMap()
+    private int     initMap()
     {
         return (((hero.getLevel() - 1) * 5) + 10 - 1);
     }
 
-    private int     setPos()
+    private int     initPos()
     {
-        return setMap() / 2;
+        return initMap() / 2;
+    }
+
+    public void     resetMap()
+    {
+        map.x = initMap();
+        map.y = initMap();
+        resetPos();
+    }
+
+    private void     resetPos()
+    {
+        pos.x = initPos();
+        pos.y = initPos();
     }
 
     public void     moveHero(int move)
@@ -46,7 +72,7 @@ public class Game {
             pos.x -= 1;
     }
 
-    public  boolean     experienceUp(Villains villain)
+    public  boolean     experienceUp(IVillains villain)
     {
         hero.setExperience(villain.getXP() + (hero.getLevel() * 500));
         return levelUp();
