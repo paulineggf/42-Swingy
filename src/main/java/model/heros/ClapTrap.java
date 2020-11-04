@@ -44,7 +44,7 @@ public class ClapTrap implements IClapTrap, Serializable
 
     public float    getExperience()
     {
-        return levels.getExperience();
+        return levels.getXP();
     }
 
     public int      getAttack()
@@ -60,6 +60,17 @@ public class ClapTrap implements IClapTrap, Serializable
     public int      getHitPoints()
     {
         return powers.getHitPoints();
+    }
+
+    // Setters
+    public void     setExperience(int XP)
+    {
+        levels.XP += XP;
+    }
+
+    public void     setLevel(int level)
+    {
+        levels.level += level;
     }
 
     // Methods

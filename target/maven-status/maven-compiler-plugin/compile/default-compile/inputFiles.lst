@@ -1,10 +1,13 @@
 /home/pauline/IdeaProjects/Swingy/src/main/java/model/heros/Powers.java
 /home/pauline/IdeaProjects/Swingy/src/main/java/model/heros/FragTrap.java
-/home/pauline/IdeaProjects/Swingy/src/main/java/controller/Game.java
 /home/pauline/IdeaProjects/Swingy/src/main/java/model/villains/Villains.java
 /home/pauline/IdeaProjects/Swingy/src/main/java/model/villains/Witch.java
 /home/pauline/IdeaProjects/Swingy/src/main/java/view/Console.java
+/home/pauline/IdeaProjects/Swingy/src/main/java/model/game/Game.java
 /home/pauline/IdeaProjects/Swingy/src/main/java/model/heros/Levels.java
+/home/pauline/IdeaProjects/Swingy/src/main/java/controller/Main.java
+/home/pauline/IdeaProjects/Swingy/src/main/java/model/game/MyMap.java
+/home/pauline/IdeaProjects/Swingy/src/main/java/model/game/MyPosition.java
 /home/pauline/IdeaProjects/Swingy/src/main/java/model/villains/Vampire.java
 /home/pauline/IdeaProjects/Swingy/src/main/java/model/heros/ClapTrapFactory.java
 /home/pauline/IdeaProjects/Swingy/src/main/java/view/IView.java

@@ -1,6 +1,6 @@
-
 package view;
 
+import model.game.Game;
 import model.heros.IHero;
 
 import java.io.BufferedReader;
@@ -95,5 +95,38 @@ public class Console implements IView {
             }
             System.out.println("This character doesn't exist, please try again");
         }
+    }
+
+    public void     displayMap(Game game)
+    {
+        for (int j = 0; j < game.map.getY(); j++)
+        {
+            for (int i = 0; i < game.map.getX(); i++)
+                System.out.print("+----");
+            System.out.println("+");
+            for (int i = 0; i < game.map.getX(); i++)
+            {
+                if (game.pos.getY() == j && game.pos.getX() == i)
+                    System.out.printf("| H  ");
+                else
+                   System.out.printf("|%-4s", " ");
+            }
+            System.out.println("|");
+        }
+        for (int i = 0; i < game.map.getX(); i++)
+            System.out.print("+----");
+        System.out.println("+");
+    }
+
+    public int      moveHero(Game game) throws IOException {
+        int move;
+
+        System.out.println("Move your hero:");
+        System.out.println("8 = NORTH");
+        System.out.println("2 = SOUTH");
+        System.out.println("4 = WEST");
+        System.out.println("6 = EAST");
+        move = Integer.parseInt(br.readLine());
+        return move;
     }
 }

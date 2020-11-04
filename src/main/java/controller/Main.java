@@ -1,5 +1,6 @@
 package controller;
 
+import model.game.Game;
 import model.heros.ClapTrapFactory;
 import model.heros.IHero;
 import view.Console;
@@ -8,17 +9,18 @@ import view.IView;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Game
+public class Main
 {
     // Attributes
-    private static IView game;
+    private static IView view;
 
+    // Methods
     public static void      main(String[] args) throws Exception {
         int gamerChoice;
 
-        IView g = null;
+        IView chooseView = null;
         if (args[0].equals("console")) {
-            g = new Console();
+            chooseView = new Console();
         }
         else if (args[0].equals("gui")) {
             return;
@@ -27,9 +29,10 @@ public class Game
             System.err.println("Error argument");
             System.exit(1);
         }
-        game = g;
-        gamerChoice = game.init();
+        view = chooseView;
+        gamerChoice = view.init();
         IHero hero = heroChoice(gamerChoice);
+        launchGame(hero);
     }
 
     private static IHero     heroChoice(int gamerChoice) throws Exception {
@@ -49,9 +52,9 @@ public class Game
         String  name;
         IHero   hero;
 
-        type = game.chooseClapTrap();
-        artefact = game.chooseArtefact();
-        name = game.chooseName();
+        type = view.chooseClapTrap();
+        artefact = view.chooseArtefact();
+        name = view.chooseName();
         hero = ClapTrapFactory.newClapTrap(type, name, artefact);
 
         // Save data
@@ -70,7 +73,7 @@ public class Game
             ArrayList<IHero> heroSave = new ArrayList<IHero>();
             heroSave = (ArrayList<IHero>)ResourceManager.load("./src/main/data/save");
             if (heroSave != null) {
-                name = game.displayCharacters(heroSave);
+                name = view.displayCharacters(heroSave);
                 for (IHero hero: heroSave) {
                     if (name.equals(hero.getName()))
                         return hero;
@@ -85,10 +88,16 @@ public class Game
         return null;
     }
 
+    private static void     launchGame(IHero hero) throws IOException {
+        Game    game = new Game(hero);
+        int     moveHero;
 
-
-    private static void     launchGame(IHero hero)
-    {
-
+        while (true)
+        {
+            view.displayMap(game);
+            moveHero = view.moveHero(game);
+            game.moveHero(moveHero);
+            view.displayMap(game);
+        }
     }
 }

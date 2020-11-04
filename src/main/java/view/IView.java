@@ -1,5 +1,6 @@
 package view;
 
+import model.game.Game;
 import model.heros.IHero;
 
 import java.io.IOException;
@@ -11,4 +12,6 @@ public interface IView {
     String  chooseArtefact() throws IOException;
     String  chooseName() throws IOException;
     String  displayCharacters(ArrayList<IHero> heroSave) throws IOException;
+    void    displayMap(Game game);
+    int     moveHero(Game game) throws IOException;
 }

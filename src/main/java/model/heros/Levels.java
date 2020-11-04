@@ -8,13 +8,13 @@ public class Levels implements Serializable
 
     // Attributes
     int     level;
-    float   experience;
+    float XP;
 
     // Constructor
     private Levels(Builder builder)
     {
         this.level = builder.level;
-        this.experience = builder.experience;
+        this.XP = builder.experience;
     }
 
     // Builder
@@ -47,8 +47,8 @@ public class Levels implements Serializable
         return level;
     }
 
-    float   getExperience()
+    float getXP()
     {
-        return experience;
+        return XP;
     }
 }
