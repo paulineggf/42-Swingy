@@ -15,12 +15,23 @@ public class ResourceManager
 {
     public static void      save(Serializable data, String fileName) throws Exception
     {
+        boolean exist;
+
         File tmpDir = new File(fileName);
+        exist = false;
         if (tmpDir.exists())
         {
             try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(Paths.get(fileName)))) {
                 ArrayList<Game> game = (ArrayList<Game>)ois.readObject();
-                game.add((Game) data);
+                for (Game saveGame: game) {
+                    if (saveGame.hero.getName().equals(((Game) data).hero.getName()))
+                    {
+                        saveGame = (Game) data;
+                        exist = true;
+                    }
+                }
+                if (exist == false)
+                    game.add((Game) data);
                 try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(Paths.get(fileName)))) {
                     oos.writeObject(game);
                 }
@@ -28,7 +39,7 @@ public class ResourceManager
         }
         else
         {
-            ArrayList<Game> game = new ArrayList<Game>();
+            ArrayList<Game> game = new ArrayList<>();
             game.add((Game) data);
             try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(Paths.get(fileName)))) {
                 oos.writeObject(game);

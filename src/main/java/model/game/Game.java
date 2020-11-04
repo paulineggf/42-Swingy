@@ -2,8 +2,6 @@ package model.game;
 
 import model.heros.IHero;
 import model.villains.IVillains;
-import model.villains.Villains;
-
 import java.io.Serializable;
 
 public class Game implements Serializable {

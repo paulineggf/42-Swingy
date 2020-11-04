@@ -57,16 +57,11 @@ public class Main
             System.exit(1);
         }
         view = chooseView;
-        view.rules();
-        gamerChoice = view.init();
-        game = heroChoice(gamerChoice);
+        gamerChoice = MENU;
         while (true)
         {
-            System.out.println("CONTINUE");
-            launchGame();
-            gamerChoice = view.saveContinueMenuExit();
             if (gamerChoice == CONTINUE)
-                continue;
+                launchGame();
             else if (gamerChoice == SAVE)
                 saveGame();
             else if (gamerChoice == MENU)
@@ -74,9 +69,11 @@ public class Main
                 view.rules();
                 gamerChoice = view.init();
                 game = heroChoice(gamerChoice);
+                launchGame();
             }
             else if (gamerChoice == EXIT)
                 System.exit(0);
+            gamerChoice = view.saveContinueMenuExit();
         }
     }
 
@@ -112,7 +109,6 @@ public class Main
         artefact = view.chooseArtefact();
         name = view.chooseName();
         hero = ClapTrapFactory.newClapTrap(type, name, artefact);
-
         return new Game(hero);
     }
 
@@ -216,7 +212,6 @@ public class Main
             view.heroAttack(game.hero, villain);
             game.hero.attack(villain);
             view.getHitPoints(game.hero, villain);
-
             if (game.hero.getHitPoints() > 0 && villain.getHitPoints() > 0) {
                 view.villainAttack(game.hero, villain);
                 villain.attack(game.hero);
@@ -224,7 +219,6 @@ public class Main
             }
             else
                 break;
-
             gamerChoice = view.continueToFightOrRun();
             if (gamerChoice == RUN)
                 gamerChoice = randomFight();
@@ -244,6 +238,5 @@ public class Main
         }
         else if (game.experienceUp(villain) == true)
             view.levelUp(game.hero);
-
     }
 }

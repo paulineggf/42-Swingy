@@ -1,6 +1,10 @@
 package model.game;
 
-public class MyMap {
+import java.io.Serializable;
+
+public class MyMap implements Serializable {
+    private static final long   serialVersionUID = 1L;
+
     int     x;
     int     y;
 
