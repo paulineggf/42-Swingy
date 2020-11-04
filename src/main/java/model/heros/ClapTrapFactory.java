@@ -36,7 +36,7 @@ public class ClapTrapFactory
                                             .build();
 
         Levels levels = new Levels.Builder().experience(0)
-                                            .level(1)
+                                            .level(0)
                                             .build();
 
         if (type.equals("FragTrap") == true)

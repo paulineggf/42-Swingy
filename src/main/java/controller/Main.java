@@ -3,6 +3,8 @@ package controller;
 import model.game.Game;
 import model.heros.ClapTrapFactory;
 import model.heros.IHero;
+import model.villains.IVillain;
+import model.villains.VillainsFactory;
 import view.Console;
 import view.IView;
 
@@ -11,8 +13,20 @@ import java.util.ArrayList;
 
 public class Main
 {
+    // defines
+    private static final int    NORTH = 8;
+    private static final int    SOUTH = 2;
+    private static final int    EAST = 6;
+    private static final int    WEST = 4;
+
+    private static final int    FIGHT = 1;
+    private static final int    RUN = 2;
+
+
     // Attributes
     private static IView view;
+    private static Game  game;
+
 
     // Methods
     public static void      main(String[] args) throws Exception {
@@ -30,6 +44,7 @@ public class Main
             System.exit(1);
         }
         view = chooseView;
+        view.rules();
         gamerChoice = view.init();
         IHero hero = heroChoice(gamerChoice);
         launchGame(hero);
@@ -89,15 +104,67 @@ public class Main
     }
 
     private static void     launchGame(IHero hero) throws IOException {
-        Game    game = new Game(hero);
-        int     moveHero;
+        Game        newGame = new Game(hero);
+        int         moveHero;
+        int         villain;
+        IVillain    newVillain;
 
+        game = newGame;
+        view.displayMap(game, null);
         while (true)
         {
-            view.displayMap(game);
+            newVillain = null;
             moveHero = view.moveHero(game);
+            if (moveHero != NORTH && moveHero != SOUTH && moveHero != WEST && moveHero != EAST)
+                continue;
             game.moveHero(moveHero);
-            view.displayMap(game);
+            villain = villainsRandom();
+            System.out.println(villain);
+            if (villain != 0)
+                newVillain = VillainsFactory.newVillain(villain);
+            view.displayMap(game, newVillain);
+            if (villain != 0)
+                launchFight(newVillain);
         }
+    }
+
+    private static int      villainsRandom()
+    {
+        if ((int)((Math.random() * 99) + 1) <= 33 + game.hero.getLevel())
+            return (int) ((Math.random() * 3) + 1);
+        return 0;
+    }
+
+    private static void     launchFight(IVillain villain) throws IOException {
+        int     gamerChoice;
+
+        gamerChoice = view.villainAppear(villain);
+        if (gamerChoice == RUN)
+            gamerChoice = randomFight();
+        if (gamerChoice == FIGHT)
+            launchBattle(villain);
+    }
+
+    private static int      randomFight() {
+        int random;
+
+        random = (int) ((Math.random() * 2) + 1);
+        if (random == FIGHT)
+            view.forceToFight();
+        else
+            view.runAway();
+        return random;
+    }
+
+    private static void      launchBattle(IVillain villain) {
+        while (game.hero.getHitPoints() > 0 && villain.getHitPoints() > 0)
+        {
+            view.heroAttack(game.hero, villain);
+            game.hero.attack(villain);
+            view.villainAttack(game.hero, villain);
+            villain.attack(game.hero);
+        }
+     //   if (game.hero.getHitPoints() <= 0)
+       //     view.gameOver();
     }
 }

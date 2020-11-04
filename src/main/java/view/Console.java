@@ -2,6 +2,7 @@ package view;
 
 import model.game.Game;
 import model.heros.IHero;
+import model.villains.IVillain;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,8 +16,7 @@ public class Console implements IView {
         int gamerChoice;
         gamerChoice = 0;
         while (true) {
-            System.out.println("Gamer choice: " + gamerChoice);
-            System.out.println("Welcome to Swingy!");
+            System.out.println("What do you want to do?");
             System.out.println("1. New game");
             System.out.println("2. Load save game");
             System.out.println("3. Exit");
@@ -97,7 +97,7 @@ public class Console implements IView {
         }
     }
 
-    public void     displayMap(Game game)
+    public void     displayMap(Game game, IVillain villain)
     {
         for (int j = 0; j < game.map.getY(); j++)
         {
@@ -106,7 +106,9 @@ public class Console implements IView {
             System.out.println("+");
             for (int i = 0; i < game.map.getX(); i++)
             {
-                if (game.pos.getY() == j && game.pos.getX() == i)
+                if (game.pos.getY() == j && game.pos.getX() == i && villain != null)
+                    System.out.printf("| H%c ", villain.getInitials());
+                else if (game.pos.getY() == j && game.pos.getX() == i)
                     System.out.printf("| H  ");
                 else
                    System.out.printf("|%-4s", " ");
@@ -119,14 +121,65 @@ public class Console implements IView {
     }
 
     public int      moveHero(Game game) throws IOException {
-        int move;
+        int     move;
+        String  line;
 
         System.out.println("Move your hero:");
-        System.out.println("8 = NORTH");
-        System.out.println("2 = SOUTH");
-        System.out.println("4 = WEST");
-        System.out.println("6 = EAST");
-        move = Integer.parseInt(br.readLine());
+        line = br.readLine();
+        if (line.equals("") == false)
+            move = Integer.parseInt(line);
+        else
+            move = 0;
         return move;
+    }
+
+    public void     rules()
+    {
+        System.out.println("Welcome to Swingy!");
+
+        System.out.println("You win the game if you reach on of the borders of the map." +
+                            "Each turn you can move one position in one of the 4 four directions:\n" +
+                            "Press:\n" +
+                            "8 to move up\n" +
+                            "4 to move to the left\n" +
+                            "6 to move to the right\n" +
+                            "2 to move down\n");
+    }
+
+    public int       villainAppear(IVillain villain) throws IOException {
+        String choice;
+
+        System.out.println("No! A " + villain.getType() + " appear!");
+        System.out.println("Would you like to fight (1) or run (2) ?");
+        choice = "";
+        while (choice.equals("") || (choice.equals("1") == false && choice.equals("2") == false))
+            choice = br.readLine();
+        return Integer.parseInt(choice);
+    }
+
+    public void     forceToFight()
+    {
+        System.out.println("You can't run! You have to fight!!");
+    }
+
+    public void     runAway()
+    {
+        System.out.println("You managed to escape!!");
+    }
+
+    public void     heroAttack(IHero hero, IVillain villain)
+    {
+        System.out.println(hero.getName() + " attack " + villain.getType() + "!");
+        System.out.println(villain.getType() + " loose " + hero.getAttack() + " hit points.");
+        System.out.println(hero.getName() + " hit points: " + hero.getHitPoints());
+        System.out.println(villain.getType() + " hit points: " + villain.getType());
+    }
+
+    public void     villainAttack(IHero hero, IVillain villain)
+    {
+        System.out.println(villain.getType() + " attack " + hero.getName() + "!");
+        System.out.println(hero.getName() + " loose " + (villain.getAttack() - hero.getDefense()) + " hit points.");
+        System.out.println(hero.getName() + " hit points: " + hero.getHitPoints());
+        System.out.println(villain.getType() + " hit points: " + villain.getType());
     }
 }

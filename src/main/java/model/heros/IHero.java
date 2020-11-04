@@ -1,5 +1,7 @@
 package model.heros;
 
+import model.villains.IVillain;
+
 import java.io.Serializable;
 
 public interface IHero extends IClapTrap, Serializable
@@ -8,6 +10,5 @@ public interface IHero extends IClapTrap, Serializable
     String   getType();
 
     // Methods
-    void     fight();
-    void     run();
+    void attack(IVillain villain);
 }

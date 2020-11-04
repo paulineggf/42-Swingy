@@ -4,8 +4,14 @@ import model.heros.IHero;
 import model.villains.Villains;
 
 public class Game {
+    // Enums
+    private static final int    NORTH = 8;
+    private static final int    SOUTH = 2;
+    private static final int    EAST = 6;
+    private static final int    WEST = 4;
+
     // Attributes
-    private IHero       hero;
+    public  IHero       hero;
     public  MyMap       map;
     public  MyPosition  pos;
 
@@ -30,13 +36,13 @@ public class Game {
 
     public void     moveHero(int move)
     {
-        if (move == 8)
+        if (move == NORTH)
             pos.y -= 1;
-        else if (move == 6)
+        else if (move == EAST)
             pos.x += 1;
-        else if (move == 2)
+        else if (move == SOUTH)
             pos.y += 1;
-        else if (move == 4)
+        else if (move == WEST)
             pos.x -= 1;
     }
 

@@ -1,5 +1,7 @@
 package model.heros;
 
+import model.villains.IVillain;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -9,13 +11,10 @@ public class ClapTrap implements IClapTrap, Serializable
     private static final long   serialVersionUID = 1L;
 
     // Attributes
-    @NotNull
-    @Size(min=2, max=10)
-    //@Column(name= "name", unique = true)
-    protected String  name;
-    protected String  artefact;
-    protected Levels levels;
-    protected Powers powers;
+    protected String    name;
+    protected String    artefact;
+    protected Levels    levels;
+    protected Powers    powers;
 
     // Constructor
     ClapTrap(String name, String artefact, Levels levels, Powers powers)
@@ -76,7 +75,11 @@ public class ClapTrap implements IClapTrap, Serializable
     // Methods
     public void     getDamage(int damage)
     {
-        System.out.println(name + " loose " + (damage - powers.defense) + "...");
         powers.hitPoints -= damage + powers.defense;
+    }
+
+    public void     attack(IVillain villain)
+    {
+        villain.getDamage(powers.attack);
     }
 }

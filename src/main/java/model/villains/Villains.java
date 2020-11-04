@@ -27,7 +27,18 @@ public class Villains
         hitPoints -= damage;
     }
 
-    public int      getXP() {
+    public int      getXP()
+    {
         return XP;
+    }
+
+    public int      getHitPoints()
+    {
+        return hitPoints;
+    }
+
+    public int      getAttack()
+    {
+        return attack;
     }
 }

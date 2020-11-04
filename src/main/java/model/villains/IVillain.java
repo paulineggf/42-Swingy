@@ -3,7 +3,11 @@ import model.heros.IHero;
 
 public interface IVillain
 {
-    public void attack(IHero hero);
-    public void getDamage(int damage);
-    public int  getXP();
+    void    attack(IHero hero);
+    void    getDamage(int damage);
+    int     getXP();
+    char    getInitials();
+    int     getAttack();
+    String  getType();
+    int     getHitPoints();
 }
