@@ -78,7 +78,8 @@ public class Game implements Serializable {
 
     private boolean    levelUp()
     {
-        if (hero.getExperience() > ((hero.getLevel() * 1000) + (((hero.getLevel() - 1)^2) * 450)))
+        if (hero.getExperience() > ((hero.getLevel() * 1000) + (((hero.getLevel() - 1)^2) * 450))
+            && hero.getLevel() < 5)
         {
             hero.setLevel(+1);
             return true;

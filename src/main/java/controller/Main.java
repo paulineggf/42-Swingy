@@ -42,10 +42,8 @@ public class Main
 
     // Methods
     public static void      main(String[] args) throws Exception {
-        int     gamerChoice;
-        Game    newGame;
-
         IView chooseView = null;
+        game = null;
         if (args[0].equals("console")) {
             chooseView = new Console();
         }
@@ -57,31 +55,45 @@ public class Main
             System.exit(1);
         }
         view = chooseView;
+        menu();
+
+    }
+
+    private static void     menu() throws Exception {
+        int     gamerChoice;
+
         gamerChoice = MENU;
         while (true)
         {
-            if (gamerChoice == CONTINUE)
+            if (gamerChoice == MENU)
+            {
+                view.rules();
+                game = null;
+                while (game == null)
+                {
+                    gamerChoice = view.init();
+                    game = heroChoice(gamerChoice);
+                }
+                launchGame();
+            }
+            else if (gamerChoice == CONTINUE)
                 launchGame();
             else if (gamerChoice == SAVE)
                 saveGame();
-            else if (gamerChoice == MENU)
-            {
-                view.rules();
-                gamerChoice = view.init();
-                game = heroChoice(gamerChoice);
-                launchGame();
-            }
             else if (gamerChoice == EXIT)
+            {
+                saveGame();
                 System.exit(0);
+            }
             gamerChoice = view.saveContinueMenuExit();
         }
     }
 
     private static void     saveGame()
     {
-        // Save data
         try {
             ResourceManager.save((Serializable) game, "./src/main/data/save");
+            view.wellSaved();
         }
         catch (Exception e) {
             System.err.println("Couldn't load save data " + e.getMessage());
@@ -120,12 +132,17 @@ public class Main
             if (saveGames != null) {
                 name = view.displayCharacters(saveGames);
                 for (Game saveGame: saveGames) {
-                    if (name.equals(saveGame.hero.getName()))
+                    if (name.equals(saveGame.hero.getName()) && saveGame.game == GAMEOVER)
+                    {
+                        view.characterGameOver();
+                        return null;
+                    }
+                    else if (name.equals(saveGame.hero.getName()))
                         return saveGame;
                 }
             }
             else
-                System.out.println("No character saved");
+                view.noCharacterSaved();
         }
         catch (Exception e) {
             System.err.println("Couldn't load save data: " + e.getMessage());
@@ -134,9 +151,9 @@ public class Main
     }
 
     private static void     launchGame() throws IOException {
-        int moveHero;
-        int villain;
-        IVillain newVillain;
+        int         moveHero;
+        int         villain;
+        IVillain    newVillain;
 
         newVillain = null;
         game.resetMap();
@@ -161,26 +178,9 @@ public class Main
             if (villain != 0) {
                 launchFight(newVillain);
             }
-            if (isEscape()) {
-                view.wonMap(game.hero);
-                game.game = WONMAP;
-            }
+            if (game.game != GAMEOVER)
+                results(newVillain);
         }
-    }
-
-    private static boolean  isEscape()
-    {
-        if (game.pos.getX() == 0 || game.pos.getX() + 1 == game.map.getX()
-            || game.pos.getY() == 0 || game.pos.getY() + 1 == game.map.getY())
-            return true;
-        return false;
-    }
-
-    private static int      villainsRandom()
-    {
-        if ((int)((Math.random() * 99) + 1) <= 33 + game.hero.getLevel())
-            return (int) ((Math.random() * 3) + 1);
-        return 0;
     }
 
     private static void     launchFight(IVillain villain) throws IOException {
@@ -193,17 +193,6 @@ public class Main
             launchBattle(villain);
     }
 
-    private static int      randomFight() {
-        int random;
-
-        random = (int) ((Math.random() * 2) + 1);
-        if (random == FIGHT)
-            view.forceToFight();
-        else
-            view.runAway();
-        return random;
-    }
-
     private static void      launchBattle(IVillain villain) throws IOException {
         int     gamerChoice;
 
@@ -212,12 +201,10 @@ public class Main
             view.heroAttack(game.hero, villain);
             game.hero.attack(villain);
             view.getHitPoints(game.hero, villain);
-            if (game.hero.getHitPoints() > 0 && villain.getHitPoints() > 0) {
-                view.villainAttack(game.hero, villain);
-                villain.attack(game.hero);
-                view.getHitPoints(game.hero, villain);
-            }
-            else
+            view.villainAttack(game.hero, villain);
+            villain.attack(game.hero);
+            view.getHitPoints(game.hero, villain);
+            if (game.hero.getHitPoints() < 0 || villain.getHitPoints() < 0)
                 break;
             gamerChoice = view.continueToFightOrRun();
             if (gamerChoice == RUN)
@@ -229,14 +216,53 @@ public class Main
             }
             else
                 view.forceToFight();
-
         }
         if (game.hero.getHitPoints() <= 0)
         {
             view.gameOver(game.hero);
             game.game = GAMEOVER;
         }
-        else if (game.experienceUp(villain) == true)
+        else if (game.experienceUp(villain) == true) {
             view.levelUp(game.hero);
+        }
+    }
+
+    private static void     results(IVillain villain)
+    {
+        if (isEscape()) {
+            view.wonMap(game.hero);
+            game.game = WONMAP;
+        }
+        if (game.hero.getLevel() == 5)
+        {
+            view.won(game.hero);
+            game.game = WON;
+        }
+    }
+
+    private static boolean  isEscape()
+    {
+        if (game.pos.getX() == 0 || game.pos.getX() + 1 == game.map.getX()
+                || game.pos.getY() == 0 || game.pos.getY() + 1 == game.map.getY())
+            return true;
+        return false;
+    }
+
+    private static int      villainsRandom()
+    {
+        if ((int)((Math.random() * 99) + 1) <= 33 + (game.hero.getLevel() * 2))
+            return (int) ((Math.random() * 3) + 1);
+        return 0;
+    }
+
+    private static int      randomFight() {
+        int random;
+
+        random = (int) ((Math.random() * 2) + 1);
+        if (random == FIGHT)
+            view.forceToFight();
+        else
+            view.runAway();
+        return random;
     }
 }

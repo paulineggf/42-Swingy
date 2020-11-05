@@ -10,7 +10,22 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Console implements IView {
+    private static final int    GAMEOVER = 3;
+
     private static BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
+
+    public void     rules()
+    {
+        System.out.println("Welcome to Swingy!");
+
+        System.out.println("You win the game if you reach on of the borders of the map.\n" +
+                "Each turn you can move one position in one of the 4 four directions:\n" +
+                "Press:\n" +
+                "8 to move up\n" +
+                "4 to move to the left\n" +
+                "6 to move to the right\n" +
+                "2 to move down\n");
+    }
 
     public int     init() throws IOException {
         int gamerChoice;
@@ -27,6 +42,11 @@ public class Console implements IView {
                 System.exit(0);
             System.out.println("Please try again");
         }
+    }
+
+    public void     wellSaved()
+    {
+        System.out.println("The game has been saved!");
     }
 
     public String   chooseClapTrap() throws IOException {
@@ -79,14 +99,19 @@ public class Console implements IView {
 
     public String     displayCharacters(ArrayList<Game> saveGames) throws IOException {
         String name;
+        String state;
 
         System.out.println("Choose a ClapTrap");
-        System.out.println("+------------+------------+------------+------------+------------+------------+------------+------------+");
-        System.out.printf("| %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s |\n", "Name", "Type", "Level", "Experience", "Artefact", "Attack", "Defense", "Hit Points");
+        System.out.println("+------------+------------+------------+------------+------------+------------+------------+------------+------------+");
+        System.out.printf("| %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s |\n", "Name", "Type", "Level", "Experience", "Artefact", "Attack", "Defense", "Hit Points", " ");
         for (Game saveGame: saveGames) {
-            System.out.printf("| %-10.10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s |\n", saveGame.hero.getName(), saveGame.hero.getType(), saveGame.hero.getLevel(), saveGame.hero.getExperience(), saveGame.hero.getArtefact(), saveGame.hero.getAttack(), saveGame.hero.getDefense(), saveGame.hero.getHitPoints());
+            if (saveGame.game == GAMEOVER)
+                state = "Game Over";
+            else
+                state = "In Progress";
+            System.out.printf("| %-10.10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s |\n", saveGame.hero.getName(), saveGame.hero.getType(), saveGame.hero.getLevel(), saveGame.hero.getExperience(), saveGame.hero.getArtefact(), saveGame.hero.getAttack(), saveGame.hero.getDefense(), saveGame.hero.getHitPoints(), state);
         }
-        System.out.println("+------------+------------+------------+------------+------------+------------+------------+------------+");
+        System.out.println("+------------+------------+------------+------------+------------+------------+------------+------------+------------+");
         while (true) {
             name = br.readLine();
             for (Game saveGame: saveGames) {
@@ -95,6 +120,16 @@ public class Console implements IView {
             }
             System.out.println("This character doesn't exist, please try again");
         }
+    }
+
+    public void     noCharacterSaved()
+    {
+        System.out.println("No character saved");
+    }
+
+    public void     characterGameOver()
+    {
+        System.out.println("You can't play this hero anymore, GAME OVER :(");
     }
 
     public void     displayMap(Game game, IVillain villain)
@@ -131,19 +166,6 @@ public class Console implements IView {
         else
             move = 0;
         return move;
-    }
-
-    public void     rules()
-    {
-        System.out.println("Welcome to Swingy!");
-
-        System.out.println("You win the game if you reach on of the borders of the map." +
-                            "Each turn you can move one position in one of the 4 four directions:\n" +
-                            "Press:\n" +
-                            "8 to move up\n" +
-                            "4 to move to the left\n" +
-                            "6 to move to the right\n" +
-                            "2 to move down\n");
     }
 
     public int       villainAppear(IVillain villain) throws IOException {
@@ -218,11 +240,16 @@ public class Console implements IView {
                            "1/ Continue the game\n" +
                            "2/ Save the game\n" +
                            "3/ Go back to the main menu\n" +
-                           "4/ Quit");
+                           "4/ Save and Exit");
         choice = "";
         while (choice.equals("") || (choice.equals("1") == false && choice.equals("2") == false
                 && choice.equals("3") == false && choice.equals("4") == false))
             choice = br.readLine();
         return Integer.parseInt(choice);
+    }
+
+    public void     won(IHero hero)
+    {
+        System.out.println(hero.getName() + " has won! Congratulations!");
     }
 }

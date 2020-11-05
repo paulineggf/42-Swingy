@@ -3,7 +3,6 @@ package view;
 import model.game.Game;
 import model.heros.IHero;
 import model.villains.IVillain;
-import model.villains.IVillains;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,5 +27,9 @@ public interface IView {
     void    levelUp(IHero hero);
     void    wonMap(IHero hero);
     int     saveContinueMenuExit() throws IOException;
+    void    noCharacterSaved();
+    void    wellSaved();
+    void    won(IHero hero);
+    void    characterGameOver();
 }
 
