@@ -72,7 +72,10 @@ public class Game implements Serializable {
 
     public  boolean     experienceUp(IVillains villain)
     {
-        hero.setExperience(villain.getXP() + (hero.getLevel() * 500));
+        if (villain != null)
+            hero.setExperience(villain.getXP() + (hero.getLevel() * 500));
+        else
+            hero.setExperience(100);
         return levelUp();
     }
 

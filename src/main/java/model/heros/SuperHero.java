@@ -4,7 +4,7 @@ import model.villains.IVillains;
 
 import java.io.Serializable;
 
-public class ClapTrap implements IClapTrap, Serializable
+public class SuperHero implements ISuperHero, Serializable
 {
     private static final long   serialVersionUID = 1L;
 
@@ -15,7 +15,7 @@ public class ClapTrap implements IClapTrap, Serializable
     protected Powers    powers;
 
     // Constructor
-    ClapTrap(String name, String artefact, Levels levels, Powers powers)
+    SuperHero(String name, String artefact, Levels levels, Powers powers)
     {
         this.name = name;
         this.artefact = artefact;

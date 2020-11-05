@@ -52,17 +52,17 @@ public class Console implements IView {
     public String   chooseClapTrap() throws IOException {
         String type;
 
-        System.out.println("Choose a ClapTrap");
+        System.out.println("Choose a SuperHero");
         System.out.println("+------------+------------+------------+------------+");
         System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Type", "Attack", "Defense", "Hit Points");
-        System.out.printf("| %-10s | %-10d | %-10d | %-10d |\n", "FragTrap", 30, 10, 100);
-        System.out.printf("| %-10s | %-10d | %-10d | %-10d |\n", "ScavTrap", 20, 20, 100);
-        System.out.printf("| %-10s | %-10d | %-10d | %-10d |\n", "NinjaTrap", 60, 30, 60);
+        System.out.printf("| %-10s | %-10d | %-10d | %-10d |\n", "Spiderman", 30, 10, 100);
+        System.out.printf("| %-10s | %-10d | %-10d | %-10d |\n", "Superman", 20, 20, 100);
+        System.out.printf("| %-10s | %-10d | %-10d | %-10d |\n", "Elasticman", 60, 30, 60);
         System.out.println("+------------+------------+------------+------------+");
 
         while (true) {
             type = br.readLine();
-            if (type.equals("FragTrap") || type.equals("ScavTrap") || type.equals("NinjaTrap"))
+            if (type.equals("Spiderman") || type.equals("Superman") || type.equals("Elasticman"))
                 break;
             System.out.println("Please try again");
         }
@@ -101,17 +101,17 @@ public class Console implements IView {
         String name;
         String state;
 
-        System.out.println("Choose a ClapTrap");
-        System.out.println("+------------+------------+------------+------------+------------+------------+------------+------------+------------+");
-        System.out.printf("| %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s |\n", "Name", "Type", "Level", "Experience", "Artefact", "Attack", "Defense", "Hit Points", " ");
+        System.out.println("Choose a SuperHero");
+        System.out.println("+------------+------------+------------+------------+------------+------------+------------+------------+-------------+");
+        System.out.printf("| %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-11s |\n", "Name", "Type", "Level", "Experience", "Artefact", "Attack", "Defense", "Hit Points", " ");
         for (Game saveGame: saveGames) {
             if (saveGame.game == GAMEOVER)
                 state = "Game Over";
             else
                 state = "In Progress";
-            System.out.printf("| %-10.10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s |\n", saveGame.hero.getName(), saveGame.hero.getType(), saveGame.hero.getLevel(), saveGame.hero.getExperience(), saveGame.hero.getArtefact(), saveGame.hero.getAttack(), saveGame.hero.getDefense(), saveGame.hero.getHitPoints(), state);
+            System.out.printf("| %-10.10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-11s |\n", saveGame.hero.getName(), saveGame.hero.getType(), saveGame.hero.getLevel(), saveGame.hero.getExperience(), saveGame.hero.getArtefact(), saveGame.hero.getAttack(), saveGame.hero.getDefense(), saveGame.hero.getHitPoints(), state);
         }
-        System.out.println("+------------+------------+------------+------------+------------+------------+------------+------------+------------+");
+        System.out.println("+------------+------------+------------+------------+------------+------------+------------+------------+-------------+");
         while (true) {
             name = br.readLine();
             for (Game saveGame: saveGames) {

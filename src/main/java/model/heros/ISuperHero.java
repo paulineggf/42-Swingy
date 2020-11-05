@@ -1,6 +1,6 @@
 package model.heros;
 
-public interface IClapTrap
+public interface ISuperHero
 {
         // Getters
         public String   getName();

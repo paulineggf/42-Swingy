@@ -1,6 +1,6 @@
 package model.heros;
 
-public class ClapTrapFactory
+public class SuperHeroFactory
 {
     public static IHero newClapTrap(String type, String name, String artefact)
     {
@@ -11,19 +11,19 @@ public class ClapTrapFactory
         attack = 0;
         defense = 0;
         hitPoints = 0;
-        if (type.equals("FragTrap") == true)
+        if (type.equals("Spiderman") == true)
         {
             attack = 30;
             defense = 10;
             hitPoints = 100;
         }
-        else if (type.equals("ScavTrap") == true)
+        else if (type.equals("Superman") == true)
         {
             attack = 20;
             defense = 20;
             hitPoints = 100;
         }
-        else if (type.equals("NinjaTrap") == true)
+        else if (type.equals("Elasticman") == true)
         {
             attack = 60;
             defense = 30;
@@ -39,12 +39,12 @@ public class ClapTrapFactory
                                             .level(0)
                                             .build();
 
-        if (type.equals("FragTrap") == true)
-            return new FragTrap(name, artefact, levels, powers);
-        else if (type.equals("ScavTrap") == true)
-            return new ScavTrap(name, artefact, levels, powers);
-        else if (type.equals("NinjaTrap") == true)
-            return new NinjaTrap(name, artefact, levels, powers);
+        if (type.equals("Spiderman") == true)
+            return new Spiderman(name, artefact, levels, powers);
+        else if (type.equals("Superman") == true)
+            return new Superman(name, artefact, levels, powers);
+        else if (type.equals("Elasticman") == true)
+            return new Elasticman(name, artefact, levels, powers);
         return null;
     }
 }

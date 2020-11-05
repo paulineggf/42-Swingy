@@ -4,7 +4,7 @@ import model.villains.IVillains;
 
 import java.io.Serializable;
 
-public interface IHero extends IClapTrap, Serializable
+public interface IHero extends ISuperHero, Serializable
 {
     // Getters
     String      getType();

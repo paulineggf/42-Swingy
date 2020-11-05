@@ -11,9 +11,9 @@ public class VillainsFactory
         if (type == VAMPIRE)
             return new Vampire(30, 50, 20);
         else if (type == ZOMBIE)
-            return new Zombie(20, 70, 30);
+            return new Zombie(20, 60, 30);
         else if (type == WITCH)
-            return new Witch(70, 60, 40);
+            return new Witch(50, 50, 40);
         return null;
     }
 }

@@ -1,12 +1,9 @@
 package controller;
 
 import model.game.Game;
-import model.game.MyMap;
-import model.game.MyPosition;
-import model.heros.ClapTrapFactory;
+import model.heros.SuperHeroFactory;
 import model.heros.IHero;
 import model.villains.IVillain;
-import model.villains.IVillains;
 import model.villains.VillainsFactory;
 import view.Console;
 import view.IView;
@@ -120,7 +117,7 @@ public class Main
         type = view.chooseClapTrap();
         artefact = view.chooseArtefact();
         name = view.chooseName();
-        hero = ClapTrapFactory.newClapTrap(type, name, artefact);
+        hero = SuperHeroFactory.newClapTrap(type, name, artefact);
         return new Game(hero);
     }
 
@@ -179,8 +176,9 @@ public class Main
                 launchFight(newVillain);
             }
             if (game.game != GAMEOVER)
-                results(newVillain);
+                resultsFight(newVillain);
         }
+        resultGame();
     }
 
     private static void     launchFight(IVillain villain) throws IOException {
@@ -201,10 +199,12 @@ public class Main
             view.heroAttack(game.hero, villain);
             game.hero.attack(villain);
             view.getHitPoints(game.hero, villain);
+            if (villain.getHitPoints() <= 0)
+                break;
             view.villainAttack(game.hero, villain);
             villain.attack(game.hero);
             view.getHitPoints(game.hero, villain);
-            if (game.hero.getHitPoints() < 0 || villain.getHitPoints() < 0)
+            if (game.hero.getHitPoints() <= 0)
                 break;
             gamerChoice = view.continueToFightOrRun();
             if (gamerChoice == RUN)
@@ -227,13 +227,18 @@ public class Main
         }
     }
 
-    private static void     results(IVillain villain)
+    private static void     resultsFight(IVillain villain)
     {
         if (isEscape()) {
+            game.experienceUp(null);
             view.wonMap(game.hero);
             game.game = WONMAP;
         }
-        if (game.hero.getLevel() == 5)
+    }
+
+    private static void     resultGame()
+    {
+        if (game.hero.getLevel() == 5 && game.game != GAMEOVER)
         {
             view.won(game.hero);
             game.game = WON;
