@@ -6,6 +6,7 @@ import model.heros.IHero;
 import model.villains.IVillain;
 import model.villains.VillainsFactory;
 import view.Console;
+import view.Gui;
 import view.IView;
 
 import java.io.*;
@@ -39,13 +40,14 @@ public class Main
 
     // Methods
     public static void      main(String[] args) throws Exception {
+
         IView chooseView = null;
         game = null;
         if (args[0].equals("console")) {
             chooseView = new Console();
         }
         else if (args[0].equals("gui")) {
-            return;
+            chooseView = new Gui();
         }
         else {
             System.err.println("Error argument");
@@ -58,19 +60,17 @@ public class Main
 
     private static void     menu() throws Exception {
         int     gamerChoice;
+        BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
 
         gamerChoice = MENU;
         while (true)
         {
             if (gamerChoice == MENU)
             {
-                view.rules();
-                game = null;
-                while (game == null)
-                {
-                    gamerChoice = view.init();
-                    game = heroChoice(gamerChoice);
-                }
+                gamerChoice = view.init();
+                gamerChoice = Integer.parseInt(br.readLine());
+                System.out.println("gamerChoice: " + gamerChoice);
+                game = heroChoice(gamerChoice);
                 launchGame();
             }
             else if (gamerChoice == CONTINUE)
@@ -114,7 +114,7 @@ public class Main
         String  name;
         IHero   hero;
 
-        type = view.chooseClapTrap();
+        type = view.chooseSuperHero();
         artefact = view.chooseArtefact();
         name = view.chooseName();
         hero = SuperHeroFactory.newClapTrap(type, name, artefact);

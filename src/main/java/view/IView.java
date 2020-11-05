@@ -8,9 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public interface IView {
-    void    rules();
     int     init() throws IOException;
-    String  chooseClapTrap() throws IOException;
+    String  chooseSuperHero() throws IOException;
     String  chooseArtefact() throws IOException;
     String  chooseName() throws IOException;
     String  displayCharacters(ArrayList<Game> saveGames) throws IOException;
