@@ -15,7 +15,6 @@ public class GlobalVariables {
     public static final int    GAMEOVER = 3;
 
     public static final int    CONTINUE = 1;
-    public static final int    SAVE = 2;
-    public static final int    MENU = 3;
-    public static final int    EXIT = 4;
+    public static final int    MENU = 2;
+    public static final int    EXIT = 3;
 }

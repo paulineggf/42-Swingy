@@ -14,8 +14,8 @@ public class FightControllerConsole {
     FightControllerConsole(GameModel game, IVillain villain) {
         int  gamerChoice;
 
-        this.game = game;
-        this.villain = villain;
+        FightControllerConsole.game = game;
+        FightControllerConsole.villain = villain;
         fightView.villainAppear(villain.getType());
         gamerChoice = fightOrRun();
         if (gamerChoice == GlobalVariables.FIGHT)

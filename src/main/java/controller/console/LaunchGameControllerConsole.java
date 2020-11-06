@@ -15,7 +15,6 @@ public class LaunchGameControllerConsole {
     public LaunchGameControllerConsole(GameModel game)
     {
         IVillain                newVillain;
-        FightControllerConsole  fightController;
 
         LaunchGameControllerConsole.game = game;
         newVillain = null;
@@ -33,7 +32,7 @@ public class LaunchGameControllerConsole {
             else
                 launchGameView.displayMap(game.pos.getX(), game.pos.getY(), game.map.getX(), game.map.getY(),' ');
             if (newVillain != null)
-                fightController = new FightControllerConsole(game, newVillain);
+                new FightControllerConsole(game, newVillain);
             if (isEscape() == true)
                 break;
         }
@@ -41,6 +40,7 @@ public class LaunchGameControllerConsole {
             launchGameView.gameOver(game.hero.getName());
         else if (game.state == GlobalVariables.WONMAP)
             resultGame();
+        new EndOfGameControllerConsole(game);
     }
 
     private static boolean  isEscape()
