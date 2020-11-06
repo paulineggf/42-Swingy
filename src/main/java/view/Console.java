@@ -1,6 +1,6 @@
 package view;
 
-import model.game.Game;
+import model.game.GameModel;
 import model.heros.IHero;
 import model.villains.IVillain;
 
@@ -94,15 +94,15 @@ public class Console implements IView {
         return name;
     }
 
-    public String     displayCharacters(ArrayList<Game> saveGames) throws IOException {
+    public String     displayCharacters(ArrayList<GameModel> saveGames) throws IOException {
         String name;
         String state;
 
         System.out.println("Choose a SuperHero");
         System.out.println("+------------+------------+------------+------------+------------+------------+------------+------------+-------------+");
         System.out.printf("| %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-11s |\n", "Name", "Type", "Level", "Experience", "Artefact", "Attack", "Defense", "Hit Points", " ");
-        for (Game saveGame: saveGames) {
-            if (saveGame.game == GAMEOVER)
+        for (GameModel saveGame: saveGames) {
+            if (saveGame.state == GAMEOVER)
                 state = "Game Over";
             else
                 state = "In Progress";
@@ -111,7 +111,7 @@ public class Console implements IView {
         System.out.println("+------------+------------+------------+------------+------------+------------+------------+------------+-------------+");
         while (true) {
             name = br.readLine();
-            for (Game saveGame: saveGames) {
+            for (GameModel saveGame: saveGames) {
                 if (name.equals(saveGame.hero.getName()))
                     return name;
             }
@@ -129,7 +129,7 @@ public class Console implements IView {
         System.out.println("You can't play this hero anymore, GAME OVER :(");
     }
 
-    public void     displayMap(Game game, IVillain villain)
+    public void     displayMap(GameModel game, IVillain villain)
     {
         for (int j = 0; j < game.map.getY(); j++)
         {
@@ -152,7 +152,7 @@ public class Console implements IView {
         System.out.println("+");
     }
 
-    public int      moveHero(Game game) throws IOException {
+    public int      moveHero(GameModel game) throws IOException {
         int     move;
         String  line;
 

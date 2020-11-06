@@ -1,5 +1,6 @@
 package controller.console;
 
+import model.game.GameModel;
 import model.heros.IHero;
 import model.heros.SuperHeroFactory;
 import view.console.NewGameViewConsole;
@@ -14,12 +15,13 @@ class NewGameControllerConsole {
         String  artefact;
         String  name;
         IHero   hero;
+        LaunchGameControllerConsole launchGameControllerConsole;
 
         type = chooseSuperHero();
         artefact = chooseArtefact();
         name = chooseName();
         hero = SuperHeroFactory.newSuperHero(type, name, artefact);
-        //LauchGameControllerConsole lauchGameControllerConsole = new LaunchGameControllerConsole();
+        launchGameControllerConsole = new LaunchGameControllerConsole(new GameModel(hero));
     }
 
     private String  chooseSuperHero()

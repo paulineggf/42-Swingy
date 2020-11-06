@@ -4,7 +4,7 @@ import model.heros.IHero;
 import model.villains.IVillains;
 import java.io.Serializable;
 
-public class Game implements Serializable {
+public class GameModel implements Serializable {
     private static final long   serialVersionUID = 1L;
 
     // Enums
@@ -23,15 +23,15 @@ public class Game implements Serializable {
     public  MyMap       map;
     public  MyPosition  pos;
 
-    public  int         game;
+    public  int         state;
 
     // Constructor
-    public Game(IHero hero)
+    public GameModel(IHero hero)
     {
         this.hero = hero;
         this.map = new MyMap(initMap());
         this.pos = new MyPosition(initPos());
-        this.game = PROGRESS;
+        this.state = PROGRESS;
     }
 
     // Methods

@@ -1,6 +1,5 @@
-package controller;
-
-import model.game.Game;
+import controller.ResourceManager;
+import model.game.GameModel;
 import model.heros.SuperHeroFactory;
 import model.heros.IHero;
 import model.villains.IVillain;
@@ -35,11 +34,11 @@ public class OldMain
 
     // Attributes
     private static IView view;
-    private static Game  game;
+    private static GameModel game;
 
 
     // Methods
-    public static void      main(String[] args) throws Exception {
+    public static void      oldmain(String[] args) throws Exception {
 
         IView chooseView = null;
         game = null;
@@ -94,7 +93,7 @@ public class OldMain
         }
     }
 
-    private static Game    heroChoice(int gamerChoice) throws Exception {
+    private static GameModel heroChoice(int gamerChoice) throws Exception {
         IHero   hero;
 
         if (gamerChoice == 1)
@@ -104,7 +103,7 @@ public class OldMain
         return null;
     }
 
-    private static Game    newGame() throws FileNotFoundException, IOException, ClassNotFoundException
+    private static GameModel newGame() throws FileNotFoundException, IOException, ClassNotFoundException
     {
         String  type;
         String  artefact;
@@ -114,19 +113,19 @@ public class OldMain
         type = view.chooseSuperHero();
         artefact = view.chooseArtefact();
         name = view.chooseName();
-        hero = SuperHeroFactory.newClapTrap(type, name, artefact);
-        return new Game(hero);
+        hero = SuperHeroFactory.newSuperHero(type, name, artefact);
+        return new GameModel(hero);
     }
 
-    private static Game    loadGame() throws Exception {
+    private static GameModel loadGame() throws Exception {
         try {
             String name;
-            ArrayList<Game> saveGames = new ArrayList<Game>();
-            saveGames = (ArrayList<Game>)ResourceManager.load("./src/main/data/save");
+            ArrayList<GameModel> saveGames = new ArrayList<GameModel>();
+            saveGames = (ArrayList<GameModel>)ResourceManager.load("./src/main/data/save");
             if (saveGames != null) {
                 name = view.displayCharacters(saveGames);
-                for (Game saveGame: saveGames) {
-                    if (name.equals(saveGame.hero.getName()) && saveGame.game == GAMEOVER)
+                for (GameModel saveGame: saveGames) {
+                    if (name.equals(saveGame.hero.getName()) && saveGame.state == GAMEOVER)
                     {
                         view.characterGameOver();
                         return null;
@@ -152,8 +151,8 @@ public class OldMain
         newVillain = null;
         game.resetMap();
         view.displayMap(game, null);
-        game.game = PROGRESS;
-        while (game.game == PROGRESS) {
+        game.state = PROGRESS;
+        while (game.state == PROGRESS) {
             if (newVillain != null) {
                 view.displayMap(game, newVillain);
             }
@@ -164,7 +163,7 @@ public class OldMain
             }
             game.moveHero(moveHero);
             villain = villainsRandom();
-            System.out.println(villain);
+            //System.out.println(villain);
             if (villain != 0) {
                 newVillain = VillainsFactory.newVillain(villain);
             }
@@ -172,7 +171,7 @@ public class OldMain
             if (villain != 0) {
                 launchFight(newVillain);
             }
-            if (game.game != GAMEOVER)
+            if (game.state != GAMEOVER)
                 resultsFight(newVillain);
         }
         resultGame();
@@ -217,7 +216,7 @@ public class OldMain
         if (game.hero.getHitPoints() <= 0)
         {
             view.gameOver(game.hero);
-            game.game = GAMEOVER;
+            game.state = GAMEOVER;
         }
         else if (game.experienceUp(villain) == true) {
             view.levelUp(game.hero);
@@ -229,16 +228,16 @@ public class OldMain
         if (isEscape()) {
             game.experienceUp(null);
             view.wonMap(game.hero);
-            game.game = WONMAP;
+            game.state = WONMAP;
         }
     }
 
     private static void     resultGame()
     {
-        if (game.hero.getLevel() == 5 && game.game != GAMEOVER)
+        if (game.hero.getLevel() == 5 && game.state != GAMEOVER)
         {
             view.won(game.hero);
-            game.game = WON;
+            game.state = WON;
         }
     }
 

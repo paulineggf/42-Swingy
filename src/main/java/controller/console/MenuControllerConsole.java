@@ -8,16 +8,17 @@ public class MenuControllerConsole {
 
     public MenuControllerConsole()
     {
-        int     gamerChoice;
-
+        int                         gamerChoice;
+        NewGameControllerConsole    newGame;
+        LoadGameControllerConsole   loadGameController;
         while (true)
         {
             menuView.setVisible();
             gamerChoice = Integer.parseInt(System.console().readLine());
             if (gamerChoice == 1)
-                NewGameControllerConsole newGame = new NewGameControllerConsole();
+                newGame = new NewGameControllerConsole();
             else if (gamerChoice == 2)
-                LoadGameController loadGameController = new loadGameController();
+                loadGameController = new LoadGameControllerConsole();
             else if (gamerChoice == 3)
                 System.exit(0);
             else

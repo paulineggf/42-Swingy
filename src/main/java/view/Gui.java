@@ -1,6 +1,6 @@
 package view;
 
-import model.game.Game;
+import model.game.GameModel;
 import model.heros.IHero;
 import model.villains.IVillain;
 
@@ -79,7 +79,7 @@ public class Gui implements IView {
         return "";
     }
 
-    public String     displayCharacters(ArrayList<Game> saveGames) throws IOException {
+    public String     displayCharacters(ArrayList<GameModel> saveGames) throws IOException {
         return "";
     }
 
@@ -93,12 +93,12 @@ public class Gui implements IView {
         return;
     }
 
-    public void     displayMap(Game game, IVillain villain)
+    public void     displayMap(GameModel game, IVillain villain)
     {
         return;
     }
 
-    public int      moveHero(Game game) throws IOException {
+    public int      moveHero(GameModel game) throws IOException {
         return 0;
     }
 

@@ -1,7 +1,6 @@
 package controller;
 
-import model.game.Game;
-import model.heros.IHero;
+import model.game.GameModel;
 
 import java.io.File;
 import java.io.ObjectInputStream;
@@ -21,18 +20,18 @@ public class ResourceManager
         if (tmpDir.exists())
         {
             try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(Paths.get(fileName)))) {
-                ArrayList<Game> game = (ArrayList<Game>)ois.readObject();
+                ArrayList<GameModel> game = (ArrayList<GameModel>)ois.readObject();
                 index = 0;
-                for (Game saveGame: game) {
+                for (GameModel saveGame: game) {
 
-                    if (saveGame.hero.getName().equals(((Game) data).hero.getName()))
+                    if (saveGame.hero.getName().equals(((GameModel) data).hero.getName()))
                     {
                         game.remove(index);
                         break;
                     }
                     index++;
                 }
-                game.add(0, (Game) data);
+                game.add(0, (GameModel) data);
                 try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(Paths.get(fileName)))) {
                     oos.writeObject(game);
                 }
@@ -40,21 +39,21 @@ public class ResourceManager
         }
         else
         {
-            ArrayList<Game> game = new ArrayList<>();
-            game.add((Game) data);
+            ArrayList<GameModel> game = new ArrayList<>();
+            game.add((GameModel) data);
             try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(Paths.get(fileName)))) {
                 oos.writeObject(game);
             }
         }
     }
 
-    public static ArrayList<Game>    load(String fileName) throws Exception
+    public static ArrayList<GameModel>    load(String fileName) throws Exception
     {
         File tmpDir = new File(fileName);
         if (tmpDir.exists())
         {
             try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(Paths.get(fileName)))) {
-                return (ArrayList<Game>) ois.readObject();
+                return (ArrayList<GameModel>) ois.readObject();
             }
         }
         else

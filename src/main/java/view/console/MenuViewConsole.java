@@ -2,8 +2,6 @@ package view.console;
 
 public class MenuViewConsole {
 
-    public MenuViewConsole() {}
-
     public void     setVisible()
     {
         System.out.println("Welcome to Swingy!");

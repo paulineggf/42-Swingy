@@ -1,6 +1,6 @@
 package view;
 
-import model.game.Game;
+import model.game.GameModel;
 import model.heros.IHero;
 import model.villains.IVillain;
 
@@ -12,9 +12,9 @@ public interface IView {
     String  chooseSuperHero() throws IOException;
     String  chooseArtefact() throws IOException;
     String  chooseName() throws IOException;
-    String  displayCharacters(ArrayList<Game> saveGames) throws IOException;
-    void    displayMap(Game game, IVillain villain);
-    int     moveHero(Game game) throws IOException;
+    String  displayCharacters(ArrayList<GameModel> saveGames) throws IOException;
+    void    displayMap(GameModel game, IVillain villain);
+    int     moveHero(GameModel game) throws IOException;
     int     villainAppear(IVillain villain) throws IOException;
     void    forceToFight();
     void    runAway();

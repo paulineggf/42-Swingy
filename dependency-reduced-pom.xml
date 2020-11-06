@@ -18,7 +18,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>controller.OldMain</mainClass>
+                  <mainClass>Main</mainClass>
                 </transformer>
               </transformers>
             </configuration>
