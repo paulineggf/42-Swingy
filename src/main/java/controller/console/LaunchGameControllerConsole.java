@@ -14,10 +14,10 @@ public class LaunchGameControllerConsole {
 
     public LaunchGameControllerConsole(GameModel game)
     {
-        IVillain        newVillain;
-        //FightController fightController;
+        IVillain                newVillain;
+        FightControllerConsole  fightController;
 
-        this.game = game;
+        LaunchGameControllerConsole.game = game;
         newVillain = null;
         game.resetMap();
         launchGameView.displayMap(game.pos.getX(), game.pos.getY(), game.map.getX(), game.map.getY(), ' ');
@@ -32,11 +32,27 @@ public class LaunchGameControllerConsole {
                 launchGameView.displayMap(game.pos.getX(), game.pos.getY(), game.map.getX(), game.map.getY(), newVillain.getInitials());
             else
                 launchGameView.displayMap(game.pos.getX(), game.pos.getY(), game.map.getX(), game.map.getY(),' ');
-            //if (newVillain != null)
-            //fightController = new FightController(newVillain);
-            newVillain = null;
+            if (newVillain != null)
+                fightController = new FightControllerConsole(game, newVillain);
+            if (isEscape() == true)
+                break;
         }
-        resultGame();
+        if (game.state == GlobalVariables.GAMEOVER)
+            launchGameView.gameOver(game.hero.getName());
+        else if (game.state == GlobalVariables.WONMAP)
+            resultGame();
+    }
+
+    private static boolean  isEscape()
+    {
+        if (game.pos.getX() == 0 || game.pos.getX() + 1 == game.map.getX()
+                || game.pos.getY() == 0 || game.pos.getY() + 1 == game.map.getY())
+        {
+            launchGameView.wonMap(game.hero.getName());
+            game.state = GlobalVariables.WONMAP;
+            return true;
+        }
+        return false;
     }
 
     private static void     moveHero()
@@ -77,9 +93,9 @@ public class LaunchGameControllerConsole {
 
     private static void     resultGame()
     {
-        if (game.hero.getLevel() == 5 && game.state != GlobalVariables.GAMEOVER)
+        if (game.hero.getLevel() == 5)
         {
-            launchGameView.won(game.hero.getName());
+            launchGameView.wonGame(game.hero.getName());
             game.state = GlobalVariables.WON;
         }
     }

@@ -1,8 +1,5 @@
 package view.console;
 
-import model.game.GameModel;
-import model.heros.IHero;
-
 public class LaunchGameViewConsole {
 
     public void     displayMap(int heroX, int heroY, int mapX, int mapY, char villainInitials)
@@ -31,8 +28,19 @@ public class LaunchGameViewConsole {
         System.out.println("Move your hero:");
     }
 
-    public void     won(String name)
+    public void     wonGame(String heroName)
     {
-        System.out.println(name + " has won! Congratulations!");
+        System.out.println(heroName + " has won! Congratulations!");
     }
+
+    public void     gameOver(String heroName)
+    {
+        System.out.println(heroName + " loose the game :(");
+    }
+
+    public void     wonMap(String heroName)
+    {
+        System.out.println(heroName + " won the map!");
+    }
+
 }
