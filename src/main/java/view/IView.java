@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public interface IView {
-    int     init() throws IOException;
+    int     menu() throws IOException;
     String  chooseSuperHero() throws IOException;
     String  chooseArtefact() throws IOException;
     String  chooseName() throws IOException;

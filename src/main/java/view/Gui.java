@@ -23,21 +23,8 @@ public class Gui implements IView {
 
     }
 
-    public void    rules()
+    public int     menu() throws IOException
     {
-        JTextArea textArea = new JTextArea("Welcome to Swingy!\n" +
-                "You win the game if you reach on of the borders of the map.\n");
-
-        textArea.setBounds(500, 200, 1000, 200);
-        frame.add(textArea);
-        frame.setSize(2560, 1600);
-        frame.setLayout(null);
-        frame.setVisible(true);
-    }
-
-    public int     init() throws IOException
-    {
-        System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.in)));
 
         JTextArea textArea = new JTextArea("Welcome to Swingy!\n" +
                 "You win the game if you reach on of the borders of the map.\n");
@@ -47,6 +34,7 @@ public class Gui implements IView {
         textArea.setBounds(500, 200, 1000, 200);
         newGame.setBounds(500, 500, 200, 50);
         loadGame.setBounds(800, 500, 200, 50);
+
 
 
         newGame.addActionListener(new ActionListener() {

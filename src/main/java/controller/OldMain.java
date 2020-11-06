@@ -12,7 +12,7 @@ import view.IView;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Main
+public class OldMain
 {
     // defines
     private static final int    NORTH = 8;
@@ -60,16 +60,13 @@ public class Main
 
     private static void     menu() throws Exception {
         int     gamerChoice;
-        BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
 
         gamerChoice = MENU;
         while (true)
         {
             if (gamerChoice == MENU)
             {
-                gamerChoice = view.init();
-                gamerChoice = Integer.parseInt(br.readLine());
-                System.out.println("gamerChoice: " + gamerChoice);
+                gamerChoice = view.menu();
                 game = heroChoice(gamerChoice);
                 launchGame();
             }
