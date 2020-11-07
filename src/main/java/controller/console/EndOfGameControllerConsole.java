@@ -18,23 +18,16 @@ public class EndOfGameControllerConsole {
         int gamerChoice;
 
         this.game = game;
-        System.out.println(game.hero.getName());
         saveGame();
         while (true)
         {
             gamerChoice = continueMenuExit();
-            if (gamerChoice == GlobalVariables.MENU) {
+            if (gamerChoice == GlobalVariables.MENU)
                 new MenuControllerConsole();
-            }
-            else if (gamerChoice == GlobalVariables.CONTINUE) {
-                saveGame();
+            else if (gamerChoice == GlobalVariables.CONTINUE)
                 new LaunchGameControllerConsole(game);
-            }
             else if (gamerChoice == GlobalVariables.EXIT)
-            {
-                saveGame();
                 System.exit(0);
-            }
         }
     }
 

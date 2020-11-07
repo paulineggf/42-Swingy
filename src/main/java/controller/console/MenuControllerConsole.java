@@ -10,9 +10,9 @@ public class MenuControllerConsole {
     {
         int                         gamerChoice;
 
+        menuView.setVisible();
         while (true)
         {
-            menuView.setVisible();
             gamerChoice = Integer.parseInt(System.console().readLine());
             if (gamerChoice == 1)
                 new NewGameControllerConsole();

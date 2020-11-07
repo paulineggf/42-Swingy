@@ -15,7 +15,6 @@ public class LoadGameControllerConsole {
     {
         String                      name;
         ArrayList<GameModel>             saveGames;
-        LaunchGameControllerConsole  launchGameControllerConsole;
 
         try {
             saveGames = (ArrayList<GameModel>)ResourceManager.load("./src/main/data/save");
@@ -33,7 +32,7 @@ public class LoadGameControllerConsole {
                             continue;
                         }
                         else if (name.equals(saveGame.hero.getName()))
-                            launchGameControllerConsole = new LaunchGameControllerConsole(saveGame);
+                            new LaunchGameControllerConsole(saveGame);
                     }
                     loadGameView.characterNotExit();
                     loadGameView.error();

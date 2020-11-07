@@ -15,13 +15,12 @@ class NewGameControllerConsole {
         String  artefact;
         String  name;
         IHero   hero;
-        LaunchGameControllerConsole launchGameControllerConsole;
 
         type = chooseSuperHero();
         artefact = chooseArtefact();
         name = chooseName();
         hero = SuperHeroFactory.newSuperHero(type, name, artefact);
-        launchGameControllerConsole = new LaunchGameControllerConsole(new GameModel(hero));
+        new LaunchGameControllerConsole(new GameModel(hero));
     }
 
     private String  chooseSuperHero()

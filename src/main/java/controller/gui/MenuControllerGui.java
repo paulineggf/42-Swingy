@@ -1,41 +1,30 @@
 package controller.gui;
 
-import view.GuiMenuView;
+import view.gui.MenuViewGui;
 
-import javax.swing.event.MenuListener;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class MenuControllerGui {
 
-    //MenuViewGui    menuView = MenuViewGui();
+    MenuViewGui    menuView = new MenuViewGui();
 
-    public MenuControllerGui()
-    {
-    //    menuView.addNewGameButtonListener(new NewGameButtonListener());
-    //    menuView.addLoadGameButtonListener(new LoadGameButtonListener());
-    //    menuView.setVisible(true);
+    public MenuControllerGui() throws IOException {
+        menuView.addNewGameButtonListener(new NewGameButtonListener());
+        menuView.addLoadGameButtonListener(new LoadGameButtonListener());
+        menuView.setVisible(true);
+    }
+    public class NewGameButtonListener implements ActionListener {
+        public void     actionPerformed(ActionEvent event) {
+            new NewGameControllerGui();
+        }
     }
 
-    //class NewGameButtonListener implements ActionListener {
-
-     //   public void     actionPerformed(ActionEvent event) {
-       //     try
-         //   {
-           //     NewGameController newGameController = NewGameController();
-           // } catch (Exception e) {
-            //    e.printStackTrace();
-            //}
-        //}
-    //}
-
-    //class LoadGameButtonListener implements ActionListener {
-
-      //  public void     actionPerformed(ActionEvent event) {
-        //    try
-          //  {
-            //    LoadGameController loadGameController = new LoadGameController();
-           // } catch (Exception e) {
-             //   e.printStackTrace();
-            //}
-        //}
-    //}
+    public class LoadGameButtonListener implements ActionListener {
+        public void     actionPerformed(ActionEvent event) {
+            new LoadGameControllerGui();
+        }
+    }
 }

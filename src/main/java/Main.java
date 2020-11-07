@@ -1,17 +1,16 @@
 import controller.console.MenuControllerConsole;
-//import controller.gui.MenuControllerGui;
+import controller.gui.MenuControllerGui;
+
+import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) {
-        MenuControllerConsole   menuControllerConsole;
-        //MenuControllerGui       menuControllerGui;
+    public static void main(String[] args) throws IOException {
 
         if (args[0].equals("console"))
-            menuControllerConsole = new MenuControllerConsole();
+            new MenuControllerConsole();
         else if (args[0].equals("gui"))
-            return;
-            //menuControllerGui = new MenuControllerGui();
+            new MenuControllerGui();
         else {
             System.err.println("Error argument");
             System.exit(1);

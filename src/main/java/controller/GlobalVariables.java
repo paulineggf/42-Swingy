@@ -17,4 +17,8 @@ public class GlobalVariables {
     public static final int    CONTINUE = 1;
     public static final int    MENU = 2;
     public static final int    EXIT = 3;
+
+    public static final int    VAMPIRE = 1;
+    public static final int    ZOMBIE = 2;
+    public static final int    WITCH = 3;
 }
