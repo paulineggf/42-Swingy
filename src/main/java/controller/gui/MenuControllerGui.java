@@ -2,16 +2,14 @@ package controller.gui;
 
 import view.gui.MenuViewGui;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class MenuControllerGui {
 
     MenuViewGui    view = new MenuViewGui();
 
-    public MenuControllerGui() throws IOException {
+    public MenuControllerGui() {
         view.addNewGameButtonListener(new NewGameButtonListener());
         view.addLoadGameButtonListener(new LoadGameButtonListener());
         view.setVisible(true);
