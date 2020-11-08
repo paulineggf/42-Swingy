@@ -14,7 +14,7 @@ public class LoadGameControllerConsole {
     LoadGameControllerConsole()
     {
         String                      name;
-        ArrayList<GameModel>             saveGames;
+        ArrayList<GameModel>        saveGames;
 
         try {
             saveGames = (ArrayList<GameModel>)ResourceManager.load("./src/main/data/save");

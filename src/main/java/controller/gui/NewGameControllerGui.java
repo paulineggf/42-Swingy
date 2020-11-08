@@ -12,40 +12,27 @@ import java.awt.event.ActionListener;
 
 public class NewGameControllerGui {
 
-    private NewGameViewGui newGameView = new NewGameViewGui();
+    private NewGameViewGui view = new NewGameViewGui();
 
     NewGameControllerGui()
     {
-        newGameView.addValidationButtonListener(new ValidationButtonListener());
-        newGameView.setVisible(true);
+        view.addValidationButtonListener(new ValidationButtonListener());
+        view.setVisible(true);
     }
 
     public class ValidationButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
-            String  type;
-            String  artefact;
-            String  name;
-            IHero hero;
+            String      type;
+            String[]    artefact;
+            String      name;
+            IHero       hero;
 
-            if (newGameView.getSpidermanRadioButton())
-                type = "spiderman";
-            else if (newGameView.getSupermanRadioButton())
-                type = "superman";
-            else if (newGameView.getElasticmanRadioButton())
-                type = "elasticman";
-            else
-                type = "";
-            if (newGameView.getArmorRadioButton())
-                artefact = "armor";
-            else if (newGameView.getHelmRadioButton())
-                artefact = "helm";
-            else if (newGameView.getWeaponRadioButton())
-                artefact = "weapon";
-            else
-                artefact = "";
-            name = newGameView.getName();
-            hero = SuperHeroFactory.newSuperHero(type, name, artefact);
-            new LaunchGameControllerConsole(new GameModel(hero));
+            type = view.getSelectedHero();
+            artefact = view.getSelectedArtefact().split(" ");
+            name = view.getName();
+            hero = SuperHeroFactory.newSuperHero(type, name, artefact[0]);
+         //   new LaunchGameControllerGui(new GameModel(hero));
+            view.dispose();
         }
     }
 }

@@ -3,6 +3,7 @@ package view.gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
 
 public class NewGameViewGui extends JFrame {
     JPanel          newGamePanel = new JPanel();
@@ -66,8 +67,31 @@ public class NewGameViewGui extends JFrame {
         validationButton.addActionListener(listenForValidationButton);
     }
 
+    public String   getSelectedHero()
+    {
+        for (Enumeration<AbstractButton> buttons = bgHero.getElements(); ((Enumeration<?>) buttons).hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+        return "";
+    }
+
+    public String   getSelectedArtefact()
+    {
+        for (Enumeration<AbstractButton> buttons = bgArtefact.getElements(); ((Enumeration<?>) buttons).hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+        return "";
+    }
+
     public boolean  getSpidermanRadioButton()
     {
+
         return spidermanRadioButton.isSelected();
     }
 

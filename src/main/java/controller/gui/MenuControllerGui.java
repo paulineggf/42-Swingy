@@ -9,22 +9,24 @@ import java.io.IOException;
 
 public class MenuControllerGui {
 
-    MenuViewGui    menuView = new MenuViewGui();
+    MenuViewGui    view = new MenuViewGui();
 
     public MenuControllerGui() throws IOException {
-        menuView.addNewGameButtonListener(new NewGameButtonListener());
-        menuView.addLoadGameButtonListener(new LoadGameButtonListener());
-        menuView.setVisible(true);
+        view.addNewGameButtonListener(new NewGameButtonListener());
+        view.addLoadGameButtonListener(new LoadGameButtonListener());
+        view.setVisible(true);
     }
     public class NewGameButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
             new NewGameControllerGui();
+            view.dispose();
         }
     }
 
     public class LoadGameButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
             new LoadGameControllerGui();
+            view.dispose();
         }
     }
 }

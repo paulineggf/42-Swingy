@@ -11,23 +11,29 @@ public class SuperHeroFactory
         attack = 0;
         defense = 0;
         hitPoints = 0;
+        if (artefact.equals("Weapon") == true)
+            attack += 20;
+        else if (artefact.equals("Armor") == true)
+            defense += 20;
+        else if (artefact.equals("Helm") == true)
+            hitPoints += 20;
         if (type.equals("Spiderman") == true)
         {
-            attack = 30;
-            defense = 10;
-            hitPoints = 100;
+            attack += 30;
+            defense += 10;
+            hitPoints += 100;
         }
         else if (type.equals("Superman") == true)
         {
-            attack = 20;
-            defense = 20;
-            hitPoints = 100;
+            attack += 20;
+            defense += 20;
+            hitPoints += 100;
         }
         else if (type.equals("Elasticman") == true)
         {
-            attack = 60;
-            defense = 30;
-            hitPoints = 60;
+            attack += 60;
+            defense += 30;
+            hitPoints += 60;
         }
 
         Powers powers = new Powers.Builder().attack(attack)
