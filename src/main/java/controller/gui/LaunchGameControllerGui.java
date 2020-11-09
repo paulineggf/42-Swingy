@@ -4,6 +4,7 @@ import controller.GlobalVariables;
 import model.game.GameModel;
 import model.villains.IVillain;
 import model.villains.VillainsFactory;
+import view.gui.LaunchGameViewGui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,51 +13,68 @@ public class LaunchGameControllerGui {
 
     private static GameModel            game;
     private static IVillain             villain;
-    private static LaunchGameViewGui    view = new LaunchGameViewGui();
+    private static LaunchGameViewGui    view;
 
     public LaunchGameControllerGui(GameModel game, IVillain villain)
     {
-        this.villain = villain;
-        this.game = game;
         if (villain != null)
-            view.displayMap(game.pos.getX(), game.pos.getY(), game.map.getX(), game.map.getY(), false, ' ');
+            LaunchGameControllerGui.villain = villain;
+        LaunchGameControllerGui.game = game;
+
+        char initialVillain;
+        if (villain != null)
+            initialVillain = villain.getInitials();
         else
-            view.displayMap(game.pos.getX(), game.pos.getY(), game.map.getX(), game.map.getY(), true, villain.getInitials());
+            initialVillain = ' ';
+        view = new LaunchGameViewGui(LaunchGameControllerGui.game.pos.getX(),
+                LaunchGameControllerGui.game.pos.getY(),
+                LaunchGameControllerGui.game.map.getX(),
+                LaunchGameControllerGui.game.map.getY(),
+                initialVillain);
+        view.addNorthButtonListener(new NorthButtonListener());
+        view.addSouthButtonListener(new SouthButtonListener());
+        view.addEastButtonListener(new EastButtonListener());
+        view.addWestButtonListener(new WestButtonListener());
         view.setVisible(true);
     }
 
-    public class WestButtonListener implements ActionListener {
+    public static class WestButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
             game.moveHero(GlobalVariables.WEST);
-            new LaunchGameControllerGui(game, createVillain());
+            view.directional.dispose();
             view.dispose();
+            new LaunchGameControllerGui(game, createVillain());
         }
     }
 
-    public class EastButtonListener implements ActionListener {
+    public static class EastButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
             game.moveHero(GlobalVariables.EAST);
-            new LaunchGameControllerGui(game, createVillain());
+            view.directional.dispose();
             view.dispose();
+            new LaunchGameControllerGui(game, createVillain());
         }
     }
 
-    public class NorthButtonListener implements ActionListener {
+    public static class NorthButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
             game.moveHero(GlobalVariables.NORTH);
-            new LaunchGameControllerGui(game, createVillain());
+            view.directional.dispose();
             view.dispose();
+            new LaunchGameControllerGui(game, createVillain());
         }
     }
 
-    public class SouthButtonListener implements ActionListener {
+    public static class SouthButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
             game.moveHero(GlobalVariables.SOUTH);
-            new LaunchGameControllerGui(game, createVillain());
+            view.directional.dispose();
             view.dispose();
+            new LaunchGameControllerGui(game, createVillain());
         }
     }
 
+/*
     public class FightButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
             view.fight();
@@ -73,6 +91,7 @@ public class LaunchGameControllerGui {
         }
     }
 
+*/
 
     private static IVillain createVillain()
     {

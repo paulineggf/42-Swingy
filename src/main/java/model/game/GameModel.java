@@ -1,5 +1,6 @@
 package model.game;
 
+import controller.GlobalVariables;
 import model.heros.IHero;
 import model.villains.IVillains;
 import java.io.Serializable;
@@ -7,11 +8,6 @@ import java.io.Serializable;
 public class GameModel implements Serializable {
     private static final long   serialVersionUID = 1L;
 
-    // Enums
-    private static final int    NORTH = 8;
-    private static final int    SOUTH = 2;
-    private static final int    EAST = 6;
-    private static final int    WEST = 4;
 
     private static final int    PROGRESS = 0;
     private static final int    LEVELUP = 1;
@@ -60,13 +56,13 @@ public class GameModel implements Serializable {
 
     public void     moveHero(int move)
     {
-        if (move == NORTH)
+        if (move == GlobalVariables.NORTH)
             pos.y -= 1;
-        else if (move == EAST)
+        else if (move == GlobalVariables.EAST)
             pos.x += 1;
-        else if (move == SOUTH)
+        else if (move == GlobalVariables.SOUTH)
             pos.y += 1;
-        else if (move == WEST)
+        else if (move == GlobalVariables.WEST)
             pos.x -= 1;
     }
 

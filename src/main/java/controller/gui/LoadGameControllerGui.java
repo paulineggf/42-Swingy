@@ -34,11 +34,14 @@ public class LoadGameControllerGui {
 
     public class ValidationButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
-            String hero[];
+            String arr[];
+            String hero;
 
-            hero = view.getSelectedHero().split(" ");
+            //hero = view.getSelectedHero().split(" ");
+            arr = view.getSelectedHero().split(" ");
+            hero = arr[0];
             for (GameModel saveGame: saveGames) {
-                if (hero[0].equals(saveGame.hero.getName()))
+                if (hero.equals(saveGame.hero.getName()))
                 {
                     new LaunchGameControllerGui(saveGame, null);
                     view.dispose();
