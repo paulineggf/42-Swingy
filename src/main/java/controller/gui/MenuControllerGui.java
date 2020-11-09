@@ -14,6 +14,7 @@ public class MenuControllerGui {
         view.addLoadGameButtonListener(new LoadGameButtonListener());
         view.setVisible(true);
     }
+
     public class NewGameButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
             new NewGameControllerGui();

@@ -1,8 +1,6 @@
 package controller.gui;
 
-import controller.GlobalVariables;
 import controller.ResourceManager;
-import controller.console.LaunchGameControllerConsole;
 import model.game.GameModel;
 import view.gui.LoadGameViewGui;
 
@@ -36,13 +34,13 @@ public class LoadGameControllerGui {
 
     public class ValidationButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
-            String hero;
+            String hero[];
 
-            hero = view.getSelectedHero();
+            hero = view.getSelectedHero().split(" ");
             for (GameModel saveGame: saveGames) {
-                if (hero.equals(saveGame.hero.getName()))
+                if (hero[0].equals(saveGame.hero.getName()))
                 {
-                    //new LaunchGameControllerGui(saveGame);
+                    new LaunchGameControllerGui(saveGame, null);
                     view.dispose();
                 }
             }

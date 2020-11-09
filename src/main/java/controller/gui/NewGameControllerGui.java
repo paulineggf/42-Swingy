@@ -16,6 +16,7 @@ public class NewGameControllerGui {
 
     NewGameControllerGui()
     {
+        view.addMenuButtonListener(new MenuButtonListener());
         view.addValidationButtonListener(new ValidationButtonListener());
         view.setVisible(true);
     }
@@ -31,7 +32,14 @@ public class NewGameControllerGui {
             artefact = view.getSelectedArtefact().split(" ");
             name = view.getName();
             hero = SuperHeroFactory.newSuperHero(type, name, artefact[0]);
-         //   new LaunchGameControllerGui(new GameModel(hero));
+            new LaunchGameControllerGui(new GameModel(hero), null);
+            view.dispose();
+        }
+    }
+
+    public class MenuButtonListener implements ActionListener {
+        public void     actionPerformed(ActionEvent event) {
+            new MenuControllerGui();
             view.dispose();
         }
     }

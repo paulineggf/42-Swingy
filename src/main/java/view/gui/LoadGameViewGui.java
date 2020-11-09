@@ -25,20 +25,28 @@ public class LoadGameViewGui extends JFrame {
     }
 
     public void     displayHeros(ArrayList<GameModel> saveGames) {
+        int x;
         int y;
 
-        y = 50;
-        chooseAHeroLabel.setBounds(100, 30, 200, 20);
+        x = 60;
+        y = 100;
+
+        JLabel label = new JLabel(String.format("%-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s", "Name", "Type", "Level", "Experience", "Artefact", "Attack", "Defense", "Hit Points", "State"));
+
+        chooseAHeroLabel.setBounds(x, y, 200, 20);
+        label.setBounds(x + 28, (y += 50), 800, 20);
         for (GameModel saveGame: saveGames) {
-            JRadioButton radioButton = new JRadioButton(saveGame.hero.getName());
-            radioButton.setBounds(100, y, 200, 20);
+            JRadioButton radioButton = new JRadioButton(String.format("%-12.10s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s",
+                    saveGame.hero.getName(), saveGame.hero.getType(), saveGame.hero.getLevel(), saveGame.hero.getExperience(),
+                    saveGame.hero.getArtefact(), saveGame.hero.getAttack(), saveGame.hero.getDefense(), saveGame.hero.getHitPoints(), saveGame.state));
+            radioButton.setBounds(x + 10, (y += 30), 800, 20);
             bgCharacters.add(radioButton);
             panel.add(radioButton);
-            y += 20;
         }
-        validationButton.setBounds(100, y + 10, 100, 30);
+        validationButton.setBounds(x + 10, y + 50, 100, 30);
         panel.add(validationButton);
         panel.add(chooseAHeroLabel);
+        panel.add(label);
         this.add(panel);
     }
 
