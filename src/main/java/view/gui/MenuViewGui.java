@@ -18,6 +18,7 @@ public class MenuViewGui extends JFrame {
     public MenuViewGui() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800, 800);
+        this.setLocation(400, 0);
         menuPanel.setLayout(null);
         menuPanel.setBounds(400, 400, 500, 500);
         welcomeLabel.setBounds(320, 0, 200, 200);

@@ -32,7 +32,7 @@ public class NewGameControllerGui {
             artefact = view.getSelectedArtefact().split(" ");
             name = view.getName();
             hero = SuperHeroFactory.newSuperHero(type, name, artefact[0]);
-            new LaunchGameControllerGui(new GameModel(hero), null);
+            new LaunchGameControllerGui(new GameModel(hero));
             view.dispose();
         }
     }

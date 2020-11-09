@@ -13,65 +13,94 @@ public class LaunchGameControllerGui {
 
     private static GameModel            game;
     private static IVillain             villain;
-    private static LaunchGameViewGui    view;
+    private static LaunchGameViewGui    view = new LaunchGameViewGui();
 
-    public LaunchGameControllerGui(GameModel game, IVillain villain)
+    public LaunchGameControllerGui(GameModel game)
     {
-        if (villain != null)
-            LaunchGameControllerGui.villain = villain;
         LaunchGameControllerGui.game = game;
 
-        char initialVillain;
-        if (villain != null)
-            initialVillain = villain.getInitials();
-        else
-            initialVillain = ' ';
-        view = new LaunchGameViewGui(LaunchGameControllerGui.game.pos.getX(),
+        game.resetMap();
+        view.newMap(LaunchGameControllerGui.game.pos.getX(),
                 LaunchGameControllerGui.game.pos.getY(),
                 LaunchGameControllerGui.game.map.getX(),
                 LaunchGameControllerGui.game.map.getY(),
-                initialVillain);
+                ' ');
         view.addNorthButtonListener(new NorthButtonListener());
         view.addSouthButtonListener(new SouthButtonListener());
         view.addEastButtonListener(new EastButtonListener());
         view.addWestButtonListener(new WestButtonListener());
-        view.setVisible(true);
     }
 
     public static class WestButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
+            char initialVillain;
+
+            villain = createVillain();
+            initialVillain = getInitials();
             game.moveHero(GlobalVariables.WEST);
-            view.directional.dispose();
-            view.dispose();
-            new LaunchGameControllerGui(game, createVillain());
+            view.newMap(LaunchGameControllerGui.game.pos.getX(),
+                    LaunchGameControllerGui.game.pos.getY(),
+                    LaunchGameControllerGui.game.map.getX(),
+                    LaunchGameControllerGui.game.map.getY(),
+                    initialVillain);
+            fightOrNotFight();
         }
     }
 
     public static class EastButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
+            char initialVillain;
+
+            villain = createVillain();
+            initialVillain = getInitials();
             game.moveHero(GlobalVariables.EAST);
-            view.directional.dispose();
-            view.dispose();
-            new LaunchGameControllerGui(game, createVillain());
+            view.newMap(LaunchGameControllerGui.game.pos.getX(),
+                    LaunchGameControllerGui.game.pos.getY(),
+                    LaunchGameControllerGui.game.map.getX(),
+                    LaunchGameControllerGui.game.map.getY(),
+                    initialVillain);
+            fightOrNotFight();
         }
     }
 
     public static class NorthButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
+            char initialVillain;
+
+            villain = createVillain();
+            initialVillain = getInitials();
             game.moveHero(GlobalVariables.NORTH);
-            view.directional.dispose();
-            view.dispose();
-            new LaunchGameControllerGui(game, createVillain());
+            view.newMap(LaunchGameControllerGui.game.pos.getX(),
+                    LaunchGameControllerGui.game.pos.getY(),
+                    LaunchGameControllerGui.game.map.getX(),
+                    LaunchGameControllerGui.game.map.getY(),
+                    initialVillain);
+            fightOrNotFight();
         }
     }
 
     public static class SouthButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
+            char initialVillain;
+
+            villain = createVillain();
+            initialVillain = getInitials();
             game.moveHero(GlobalVariables.SOUTH);
-            view.directional.dispose();
-            view.dispose();
-            new LaunchGameControllerGui(game, createVillain());
+            view.newMap(LaunchGameControllerGui.game.pos.getX(),
+                    LaunchGameControllerGui.game.pos.getY(),
+                    LaunchGameControllerGui.game.map.getX(),
+                    LaunchGameControllerGui.game.map.getY(),
+                    initialVillain);
+            fightOrNotFight();
         }
+
+
+    }
+
+    private static void     fightOrNotFight()
+    {
+        if (villain != null)
+            view.fight(game.hero.getName(), villain.getType());
     }
 
 /*
@@ -96,6 +125,13 @@ public class LaunchGameControllerGui {
     private static IVillain createVillain()
     {
         return VillainsFactory.newVillain(villainsRandom());
+    }
+
+    private static char     getInitials()
+    {
+        if (villain != null)
+            return villain.getInitials();
+        return ' ';
     }
 
     private static int      villainsRandom()

@@ -43,7 +43,7 @@ public class LoadGameControllerGui {
             for (GameModel saveGame: saveGames) {
                 if (hero.equals(saveGame.hero.getName()))
                 {
-                    new LaunchGameControllerGui(saveGame, null);
+                    new LaunchGameControllerGui(saveGame);
                     view.dispose();
                 }
             }

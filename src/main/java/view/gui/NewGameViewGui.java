@@ -31,6 +31,7 @@ public class NewGameViewGui extends JFrame {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800, 800);
+        this.setLocation(400, 0);
 
         panel.setLayout(null);
         panel.setBounds(400, 400, 500, 500);
