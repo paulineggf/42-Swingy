@@ -1,6 +1,7 @@
 package controller.gui;
 
 import controller.GlobalVariables;
+import controller.ResourceManager;
 import model.game.GameModel;
 import model.villains.IVillain;
 import model.villains.VillainsFactory;
@@ -8,6 +9,7 @@ import view.gui.LaunchGameViewGui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 public class LaunchGameControllerGui {
 
@@ -19,6 +21,7 @@ public class LaunchGameControllerGui {
     {
         this.game = game;
         this.game.resetMap();
+        this.game.hero.resetHitPoints();
         view.newMap(this.game.pos.getX(),
                 this.game.pos.getY(),
                 this.game.map.getX(),
@@ -91,6 +94,7 @@ public class LaunchGameControllerGui {
                 initialVillain);
         if (isEscape() == true)
         {
+            saveGame();
             game.experienceUp(villain);
             view.escape();
         }
@@ -150,6 +154,7 @@ public class LaunchGameControllerGui {
 
         // If Hero died = end of battle
         if (game.hero.getHitPoints() <= 0) {
+            saveGame();
             game.state = GlobalVariables.GAMEOVER;
             view.gameOver();
             return;
@@ -157,6 +162,16 @@ public class LaunchGameControllerGui {
 
         // Choice to continue the fight or run away
         view.otherChanceToRunAway();
+    }
+
+    private void     saveGame()
+    {
+        try {
+            ResourceManager.save((Serializable) game, "./src/main/data/save");
+        }
+        catch (Exception e) {
+            System.err.println("Couldn't load save data " + e.getMessage());
+        }
     }
 
     private int      randomFight() {

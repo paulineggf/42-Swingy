@@ -46,16 +46,22 @@ public class SuperHero implements ISuperHero, Serializable
 
     public int      getAttack()
     {
+        if (artefact.equals("Weapon"))
+            return powers.getAttack() + 20;
         return powers.getAttack();
     }
 
     public int      getDefense()
     {
+        if (artefact.equals("Armor"))
+            return powers.getDefense() + 20;
         return powers.getDefense();
     }
 
     public int      getHitPoints()
     {
+        if (artefact.equals("Helm"))
+            return powers.getHitPoints() + 20;
         return powers.getHitPoints();
     }
 
@@ -71,13 +77,13 @@ public class SuperHero implements ISuperHero, Serializable
     }
 
     // Methods
-    public void     getDamage(int damage)
-    {
-        powers.hitPoints -= damage + powers.defense;
+    public void     getDamage(int damage) {
+        powers.hitPoints -= damage + getDefense();
     }
 
-    public void     attack(IVillains villain)
-    {
-        villain.getDamage(powers.attack);
+    public void     attack(IVillains villain) {
+        villain.getDamage(getAttack());
     }
+
+
 }
