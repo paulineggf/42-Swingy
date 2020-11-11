@@ -1,8 +1,10 @@
 package view.gui;
 
+import controller.GlobalVariables;
 import model.game.GameModel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -31,25 +33,107 @@ public class LoadGameViewGui extends JFrame {
         int x;
         int y;
 
-        x = 60;
+        x = 5;
         y = 100;
 
-        JLabel label = new JLabel(String.format("%-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s", "Name", "Type", "Level", "Experience", "Artefact", "Attack", "Defense", "Hit Points", "State"));
+        panel.revalidate();
+        panel.repaint();
+        panel.setLayout(null);
+       // JLabel label = new JLabel(String.format("%-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s", "Name", "Type", "Level", "Experience", "Artefact", "Attack", "Defense", "Hit Points", "State"));
 
         chooseAHeroLabel.setBounds(x, y, 200, 20);
-        label.setBounds(x + 28, (y += 50), 800, 20);
+        //label.setBounds(x + 28, (y += 50), 800, 20);
         for (GameModel saveGame: saveGames) {
-            JRadioButton radioButton = new JRadioButton(String.format("%-12.10s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s",
+            y += 50;
+
+            JLabel name = new JLabel("Name");
+            JLabel type = new JLabel("Type");
+            JLabel level = new JLabel("Level");
+            JLabel experience = new JLabel("Experience");
+            JLabel artefact = new JLabel("Artefact");
+            JLabel attack = new JLabel("Attack");
+            JLabel defense = new JLabel("Defense");
+            JLabel hitPoints = new JLabel("Hit Points");
+            JLabel state = new JLabel("State");
+
+            name.setBounds(x+10, y, 100, 20);
+            type.setBounds(x+10+100, y , 100, 20);
+            level.setBounds(x+10+200, y , 100, 20);
+            experience.setBounds(x+10+300, y, 100, 20);
+            artefact.setBounds(x+10+400, y, 100, 20);
+
+
+            y += 20;
+            JRadioButton radioButton = new JRadioButton(String.format("%.10s", saveGame.hero.getName()));
+            radioButton.setBounds(x+ 10, y, 100, 20);
+
+            JLabel heroType = new JLabel(saveGame.hero.getType());
+            JLabel heroLevel = new JLabel(Integer.toString(saveGame.hero.getLevel()));
+            JLabel heroExperience = new JLabel(Float.toString(saveGame.hero.getExperience()));
+            JLabel heroArtefact = new JLabel(saveGame.hero.getArtefact());
+            heroType.setBounds(x+10+100, y, 100, 20);
+            heroLevel.setBounds(x+10+200, y, 100, 20);
+            heroExperience.setBounds(x+10+300, y, 100, 20);
+            heroArtefact.setBounds(x+10+400, y, 100, 20);
+
+            y += 30;
+            attack.setBounds(x+10+100, y, 100, 20);
+            defense.setBounds(x+10+200, y, 100, 20);
+            hitPoints.setBounds(x+10+300, y, 100, 20);
+            state.setBounds(x+10+400, y, 100, 20);
+
+            y += 20;
+            JLabel heroAttack = new JLabel(Integer.toString(saveGame.hero.getAttack()));
+            JLabel heroDefense = new JLabel(Integer.toString(saveGame.hero.getDefense()));
+            JLabel heroHitPoints = new JLabel(Integer.toString(saveGame.hero.getHitPoints()));
+
+            JLabel heroState;
+            if (saveGame.state == GlobalVariables.GAMEOVER)
+            {
+                heroState = new JLabel("Game Over");
+                radioButton.setEnabled(false);
+            }
+            else
+                heroState = new JLabel("In Progress");
+
+
+            heroAttack.setBounds(x+10+100, y, 100, 20);
+            heroDefense.setBounds(x+10+200, y, 100, 20);
+            heroHitPoints.setBounds(x+10+300, y, 100, 20);
+            heroState.setBounds(x+10+400, y, 100, 20);
+
+            /*JRadioButton radioButton = new JRadioButton(String.format("%-12.10s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s",
                     saveGame.hero.getName(), saveGame.hero.getType(), saveGame.hero.getLevel(), saveGame.hero.getExperience(),
-                    saveGame.hero.getArtefact(), saveGame.hero.getAttack(), saveGame.hero.getDefense(), saveGame.hero.getHitPoints(), saveGame.state));
-            radioButton.setBounds(x + 10, (y += 30), 800, 20);
+                    saveGame.hero.getArtefact(), saveGame.hero.getAttack(), saveGame.hero.getDefense(), saveGame.hero.getHitPoints(), saveGame.state));*/
+            //radioButton.setBounds(x + 10, (y += 30), 800, 20);
             bgCharacters.add(radioButton);
             panel.add(radioButton);
+            panel.add(heroType);
+            panel.add(heroLevel);
+            panel.add(heroExperience);
+            panel.add(heroArtefact);
+
+            panel.add(attack);
+            panel.add(defense);
+            panel.add(hitPoints);
+            panel.add(state);
+
+            panel.add(heroAttack);
+            panel.add(heroDefense);
+            panel.add(heroHitPoints);
+            panel.add(heroState);
+
+            panel.add(name);
+            panel.add(type);
+            panel.add(level);
+            panel.add(experience);
+            panel.add(artefact);
         }
         validationButton.setBounds(x + 10, y + 50, 100, 30);
         panel.add(validationButton);
         panel.add(chooseAHeroLabel);
-        panel.add(label);
+
+       // panel.add(label);
         this.add(panel);
     }
 

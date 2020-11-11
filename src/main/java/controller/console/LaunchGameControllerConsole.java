@@ -4,7 +4,6 @@ import controller.GlobalVariables;
 import model.game.GameModel;
 import model.villains.IVillain;
 import model.villains.VillainsFactory;
-import view.Console;
 import view.console.LaunchGameViewConsole;
 
 public class LaunchGameControllerConsole {

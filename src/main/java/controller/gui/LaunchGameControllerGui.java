@@ -154,8 +154,8 @@ public class LaunchGameControllerGui {
 
         // If Hero died = end of battle
         if (game.hero.getHitPoints() <= 0) {
-            saveGame();
             game.state = GlobalVariables.GAMEOVER;
+            saveGame();
             view.gameOver();
             return;
         }
