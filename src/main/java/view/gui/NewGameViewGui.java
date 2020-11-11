@@ -22,6 +22,8 @@ public class NewGameViewGui extends JFrame {
     JButton         validationButton = new JButton("OK");
     JButton         menuButton = new JButton("Menu");
 
+    int resHeight = 900;
+
     public NewGameViewGui() {
         int x;
         int y;
@@ -30,11 +32,11 @@ public class NewGameViewGui extends JFrame {
         y = 100;
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(800, 800);
-        this.setLocation(400, 0);
+        this.setSize(500, resHeight);
+        this.setLocation(0, 0);
 
         panel.setLayout(null);
-        panel.setBounds(400, 400, 500, 500);
+        panel.setBounds(400, 400, 500, resHeight);
         menuButton.setBounds(5, 5, 100, 30);
         panel.add(menuButton);
         

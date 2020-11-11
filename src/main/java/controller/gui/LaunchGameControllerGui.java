@@ -29,72 +29,63 @@ public class LaunchGameControllerGui {
         view.addSouthButtonListener(new SouthButtonListener());
         view.addEastButtonListener(new EastButtonListener());
         view.addWestButtonListener(new WestButtonListener());
+        view.addRunButtonListener(new RunButtonListener());
+        view.addFightButtonListener(new FightButtonListener());
     }
 
     public static class WestButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
-            char initialVillain;
-
-            villain = createVillain();
-            initialVillain = getInitials();
             game.moveHero(GlobalVariables.WEST);
-            view.newMap(LaunchGameControllerGui.game.pos.getX(),
-                    LaunchGameControllerGui.game.pos.getY(),
-                    LaunchGameControllerGui.game.map.getX(),
-                    LaunchGameControllerGui.game.map.getY(),
-                    initialVillain);
-            fightOrNotFight();
+            move();
         }
     }
 
     public static class EastButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
-            char initialVillain;
-
-            villain = createVillain();
-            initialVillain = getInitials();
             game.moveHero(GlobalVariables.EAST);
-            view.newMap(LaunchGameControllerGui.game.pos.getX(),
-                    LaunchGameControllerGui.game.pos.getY(),
-                    LaunchGameControllerGui.game.map.getX(),
-                    LaunchGameControllerGui.game.map.getY(),
-                    initialVillain);
-            fightOrNotFight();
+            move();
         }
     }
 
     public static class NorthButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
-            char initialVillain;
-
-            villain = createVillain();
-            initialVillain = getInitials();
             game.moveHero(GlobalVariables.NORTH);
-            view.newMap(LaunchGameControllerGui.game.pos.getX(),
-                    LaunchGameControllerGui.game.pos.getY(),
-                    LaunchGameControllerGui.game.map.getX(),
-                    LaunchGameControllerGui.game.map.getY(),
-                    initialVillain);
-            fightOrNotFight();
+            move();
         }
     }
 
     public static class SouthButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
-            char initialVillain;
-
-            villain = createVillain();
-            initialVillain = getInitials();
             game.moveHero(GlobalVariables.SOUTH);
-            view.newMap(LaunchGameControllerGui.game.pos.getX(),
-                    LaunchGameControllerGui.game.pos.getY(),
-                    LaunchGameControllerGui.game.map.getX(),
-                    LaunchGameControllerGui.game.map.getY(),
-                    initialVillain);
-            fightOrNotFight();
+            move();
         }
+    }
 
+    private static void     move()
+    {
+        char initialVillain;
 
+        villain = createVillain();
+        initialVillain = getInitials();
+        view.newMap(LaunchGameControllerGui.game.pos.getX(),
+                LaunchGameControllerGui.game.pos.getY(),
+                LaunchGameControllerGui.game.map.getX(),
+                LaunchGameControllerGui.game.map.getY(),
+                initialVillain);
+        fightOrNotFight();
+        if (isEscape() == true)
+            new EndOfGameControllerGui(game);
+    }
+
+    private static boolean  isEscape()
+    {
+        if (game.pos.getX() == 0 || game.pos.getX() + 1 == game.map.getX()
+                || game.pos.getY() == 0 || game.pos.getY() + 1 == game.map.getY())
+        {
+            game.state = GlobalVariables.WONMAP;
+            return true;
+        }
+        return false;
     }
 
     private static void     fightOrNotFight()
@@ -103,24 +94,61 @@ public class LaunchGameControllerGui {
             view.fight(game.hero.getName(), villain.getType());
     }
 
-/*
     public class FightButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
-            view.fight();
-            view.dispose();
+            fight();
         }
     }
 
     public class RunButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
             if (randomFight() == GlobalVariables.FIGHT)
+            {
                 view.forceToFight();
-            view.fight();
-            view.dispose();
+                fight();
+            }
+            else
+                view.runAway();
         }
     }
 
-*/
+    private static void     fight() {
+        while (true)
+        {
+            // Hero Attack
+            view.heroAttack(game.hero.getName(), villain.getType(), game.hero.getAttack());
+            game.hero.attack(villain);
+            view.getHitPoints(game.hero.getName(), villain.getType(), game.hero.getHitPoints(), villain.getHitPoints());
+
+            // If Villain died = end of battle
+            if (villain.getHitPoints() <= 0) {
+                game.experienceUp(villain);
+                view.levelUp(game.hero.getName(), game.hero.getLevel());
+                break;
+            }
+
+            // Villain hit back
+            view.villainAttack(game.hero.getName(), villain.getType(), villain.getAttack(), game.hero.getDefense());
+            villain.attack(game.hero);
+            view.getHitPoints(game.hero.getName(), villain.getType(), game.hero.getHitPoints(), villain.getHitPoints());
+
+            // If Hero died = end of battle
+            if (game.hero.getHitPoints() <= 0) {
+                game.state = GlobalVariables.GAMEOVER;
+                break;
+            }
+
+            // Choice to continue the fight or run away
+            view.otherChanceToRunAway();
+        }
+    }
+
+    private static int      randomFight() {
+        int random;
+
+        random = (int) ((Math.random() * 2) + 1);
+        return random;
+    }
 
     private static IVillain createVillain()
     {

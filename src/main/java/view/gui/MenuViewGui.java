@@ -15,16 +15,18 @@ public class MenuViewGui extends JFrame {
     JButton newGameButton = new JButton("New Game");
     JButton loadGameButton = new JButton("Load Game");
 
+    int resHeight = 900;
+
     public MenuViewGui() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(800, 800);
-        this.setLocation(400, 0);
+        this.setSize(500, resHeight);
+        this.setLocation(0, 0);
         menuPanel.setLayout(null);
-        menuPanel.setBounds(400, 400, 500, 500);
-        welcomeLabel.setBounds(320, 0, 200, 200);
-        rulesLabel.setBounds(200, 20, 500, 200);
-        newGameButton.setBounds(300, 200, 200, 50);
-        loadGameButton.setBounds(300, 300, 200, 50);
+        menuPanel.setBounds(400, 400, 500, resHeight);
+        welcomeLabel.setBounds(180, 0, 200, 200);
+        rulesLabel.setBounds(50, 20, 500, 200);
+        newGameButton.setBounds(150, 200, 200, 50);
+        loadGameButton.setBounds(150, 300, 200, 50);
 
         menuPanel.add(welcomeLabel);
         menuPanel.add(rulesLabel);

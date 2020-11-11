@@ -37,7 +37,6 @@ public class LoadGameControllerGui {
             String arr[];
             String hero;
 
-            //hero = view.getSelectedHero().split(" ");
             arr = view.getSelectedHero().split(" ");
             hero = arr[0];
             for (GameModel saveGame: saveGames) {
