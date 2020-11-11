@@ -32,15 +32,15 @@ public class NewGameControllerGui {
             artefact = view.getSelectedArtefact().split(" ");
             name = view.getName();
             hero = SuperHeroFactory.newSuperHero(type, name, artefact[0]);
-            new LaunchGameControllerGui(new GameModel(hero));
             view.dispose();
+            new LaunchGameControllerGui(new GameModel(hero));
         }
     }
 
     public class MenuButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
-            new MenuControllerGui();
             view.dispose();
+            new MenuControllerGui();
         }
     }
 }

@@ -3,10 +3,13 @@ package view.gui;
 import controller.GlobalVariables;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class EndOfGameViewGui extends JFrame {
     JPanel  panel = new JPanel();
+    JPanel  gamePanel = new JPanel();
+    public JFrame  gameFrame = new JFrame();
     JButton continueButton = new JButton("Continue");
     JButton menuButton = new JButton("Menu");
 
@@ -16,6 +19,9 @@ public class EndOfGameViewGui extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(500, resHeight);
         this.setLocation(0, 0);
+        gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameFrame.setSize(1100, resHeight);
+        gameFrame.setLocation(500, 0);
         panel.setLayout(null);
         panel.setBounds(400, 400, 500, resHeight);
         continueButton.setBounds(150, 200, 200, 50);
@@ -35,17 +41,24 @@ public class EndOfGameViewGui extends JFrame {
         panel.setLayout(null);
 
         JLabel label;
+        JLabel label1;
         if (state == GlobalVariables.GAMEOVER)
         {
             label = new JLabel("GAME OVER :(");
+            label1 = new JLabel("GAME OVER :(");
             continueButton.setEnabled(false);
         }
-        else
+        else {
             label = new JLabel("Well Done! You won!");
-
+            label1 = new JLabel("You won! Congratulations!");
+        }
         label.setBounds(180, 0, 200, 200);
-        panel.add(label);
+        label1.setBounds(500, 500, 500, 20);
 
+        panel.add(label);
+        gamePanel.add(label1);
+        gameFrame.add(gamePanel);
+        gameFrame.setVisible(true);
 
     }
 

@@ -11,8 +11,8 @@ import java.io.Serializable;
 
 public class EndOfGameControllerGui {
 
-    private static EndOfGameViewGui view = new EndOfGameViewGui();
-    private static GameModel game;
+    private EndOfGameViewGui view = new EndOfGameViewGui();
+    private GameModel game;
 
     public EndOfGameControllerGui(GameModel game)
     {
@@ -34,17 +34,19 @@ public class EndOfGameControllerGui {
         }
     }
 
-    public static class ContinueButtonListener implements ActionListener {
+    public class ContinueButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
-            new LaunchGameControllerGui(game);
             view.dispose();
+            view.gameFrame.dispose();
+            new LaunchGameControllerGui(game);
         }
     }
 
-    public static class MenuButtonListener implements ActionListener {
+    public class MenuButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
-            new MenuControllerGui();
             view.dispose();
+            view.gameFrame.dispose();
+            new MenuControllerGui();
         }
     }
 }

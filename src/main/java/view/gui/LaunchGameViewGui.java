@@ -9,15 +9,15 @@ import static java.lang.Thread.sleep;
 public class LaunchGameViewGui extends JFrame {
     JPanel  panel = new JPanel();
     JPanel  gamePanel = new JPanel();
-    //JPanel  panel = new JPanel();
-    JFrame  directionalFrame = new JFrame();
-    //JFrame  fightFrame = new JFrame();
+    public JFrame  directionalFrame = new JFrame();
     JButton northButton = new JButton("North");
     JButton southButton = new JButton("South");
     JButton eastButton = new JButton("East");
     JButton westButton = new JButton("West");
     JButton runButton = new JButton("Run");
     JButton fightButton = new JButton("Fight");
+    JButton continueButton = new JButton("Continue");
+    JButton menuButton = new JButton("Menu");
 
 
     int y = 230;
@@ -25,16 +25,12 @@ public class LaunchGameViewGui extends JFrame {
 
     public LaunchGameViewGui() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(800, resHeight);
+        this.setSize(1100, resHeight);
         this.setLocation(500, 0);
-//        directionalFrame.setSize(400, 180);
         directionalFrame.setSize(500, resHeight);
         directionalFrame.setLocation(0, 0);
-//        fightFrame.setSize(500, resHeight);
-//        fightFrame.setLocation(1200, 0);
         panel.setLayout(null);
         panel.setBounds(400, 400, 500, resHeight);
-//        panel.setBounds(1200, 0, 500, resHeight);
         northButton.setBounds(150, 0, 200, 50);
         eastButton.setBounds(250, 50, 200, 50);
         westButton.setBounds(50, 50, 200, 50);
@@ -43,25 +39,16 @@ public class LaunchGameViewGui extends JFrame {
         runButton.setEnabled(false);
         fightButton.setBounds(120, 200, 100, 30);
         fightButton.setEnabled(false);
-
-
-
+        continueButton.setBounds(150, 400, 200, 50);
+        menuButton.setBounds(150, 500, 200, 50);
         panel.add(northButton);
         panel.add(eastButton);
         panel.add(westButton);
         panel.add(southButton);
-        
         panel.add(runButton);
         panel.add(fightButton);
-        
-//        panel.add(runButton);
-//        panel.add(fightButton);
-
-
         directionalFrame.add(panel);
-        //fightFrame.add(panel);
         directionalFrame.setVisible(true);
-        //fightFrame.setVisible(true);
         this.setVisible(true);
     }
 
@@ -110,7 +97,7 @@ public class LaunchGameViewGui extends JFrame {
         JLabel label = new JLabel("A " + villainType + " appeared!");
         JLabel label1 = new JLabel("Would you like to fight or run?");
         JLabel label2 = new JLabel("");
-        if (y + 60 > resHeight - 50)
+        if (y + 40 > resHeight - 50)
         {
             y = 230;
             cleanComponents();
@@ -131,7 +118,7 @@ public class LaunchGameViewGui extends JFrame {
         panel.setLayout(null);
         JLabel label = new JLabel("You have an other chance to run away!");
         JLabel label1 = new JLabel("");
-        if (y + 40 > resHeight - 50)
+        if (y + 20 > resHeight - 50)
         {
             y = 230;
             cleanComponents();
@@ -151,7 +138,7 @@ public class LaunchGameViewGui extends JFrame {
         JLabel label = new JLabel(heroName + " attack the " + villainType + "!");
         JLabel label1 = new JLabel("The " + villainType + " loose " + heroAttack + " hit points.");
         JLabel label2 = new JLabel("");
-        if (y + 60 > resHeight - 50)
+        if (y + 40 > resHeight - 50)
         {
             y = 230;
             cleanComponents();
@@ -174,7 +161,7 @@ public class LaunchGameViewGui extends JFrame {
         JLabel label = new JLabel(heroName+ " hit points: " + heroHitPoints);
         JLabel label1 = new JLabel(villainType + " hit points: " + villainHitPoints);
         JLabel label2 = new JLabel("");
-        if (y + 60 > resHeight - 50)
+        if (y + 40 > resHeight - 50)
         {
             y = 230;
             cleanComponents();
@@ -189,24 +176,27 @@ public class LaunchGameViewGui extends JFrame {
         panel.add(label2);
     }
 
-    public void     levelUp(String heroName, int heroLevel)
+    public void     levelUp(boolean levelUp, String heroName, int heroLevel)
     {
-        panel.revalidate();
-        panel.repaint();
-        panel.setLayout(null);
-        JLabel label = new JLabel(heroName + " is level up to level " + heroLevel + "!");
-        JLabel label1 = new JLabel("");
-        if (y + 40 > resHeight - 50)
+        if (levelUp)
         {
-            y = 230;
-            cleanComponents();
+            panel.revalidate();
+            panel.repaint();
+            panel.setLayout(null);
+            JLabel label = new JLabel(heroName + " is level up to level " + heroLevel + "!");
+            JLabel label1 = new JLabel("");
+            if (y + 20 > resHeight - 50)
+            {
+                y = 230;
+                cleanComponents();
+            }
+            label.setBounds(20, y += 20, 800, 20);
+            label1.setBounds(20, y += 20, 800, 20);
+            panel.add(label);
+            panel.add(label1);
         }
-        label.setBounds(20, y += 20, 800, 20);
-        label1.setBounds(20, y += 20, 800, 20);
         enabledirectionalFramesButtons();
         disableRunAndFightButtons();
-        panel.add(label);
-        panel.add(label1);
     }
 
     public void     villainAttack(String heroName, String villainType, int villainAttack, int heroDefense)
@@ -217,7 +207,7 @@ public class LaunchGameViewGui extends JFrame {
         JLabel label = new JLabel("The " + villainType + " attack " + heroName + "!");
         JLabel label1 = new JLabel(heroName + " loose " + (villainAttack - heroDefense) + " hit points.");
         JLabel label2 = new JLabel("");
-        if (y + 60 > resHeight - 50)
+        if (y + 40 > resHeight - 50)
         {
             y = 230;
             cleanComponents();
@@ -264,7 +254,7 @@ public class LaunchGameViewGui extends JFrame {
         panel.repaint();
         panel.setLayout(null);
         JLabel label = new JLabel("You can't run! You have to fight!!");
-        if (y + 60 > 750)
+        if (y + 20 > 750)
         {
             y = 230;
             cleanComponents();
@@ -279,16 +269,53 @@ public class LaunchGameViewGui extends JFrame {
         panel.revalidate();
         panel.repaint();
         panel.setLayout(null);
-        JLabel label = new JLabel(        "You managed to escape!!");
+        JLabel label = new JLabel("You managed to escape!!");
+        JLabel label1= new JLabel("");
         if (y + 20 > 750)
         {
             y = 230;
             cleanComponents();
         }
         label.setBounds(20, y += 20, 800, 20);
+        label1.setBounds(20, y += 20, 800, 20);
         disableRunAndFightButtons();
         enabledirectionalFramesButtons();
         panel.add(label);
+        panel.add(label1);
+    }
+
+    public void     escape()
+    {
+        panel.revalidate();
+        panel.repaint();
+        panel.setLayout(null);
+        cleanComponents();
+        disableRunAndFightButtons();
+        disabledirectionalFramesButtons();
+        JLabel label = new JLabel("Well done! You won!");
+        label.setBounds(100, 300, 800, 20);
+        continueButton.setEnabled(true);
+        menuButton.setEnabled(true);
+        panel.add(label);
+        panel.add(continueButton);
+        panel.add(menuButton);
+    }
+
+    public void     gameOver()
+    {
+        panel.revalidate();
+        panel.repaint();
+        panel.setLayout(null);
+        cleanComponents();
+        disableRunAndFightButtons();
+        disabledirectionalFramesButtons();
+        JLabel label = new JLabel("Game over :(");
+        label.setBounds(100, 300, 800, 20);
+        continueButton.setEnabled(false);
+        menuButton.setEnabled(true);
+        panel.add(label);
+        panel.add(continueButton);
+        panel.add(menuButton);
     }
 
     public void    addNorthButtonListener(ActionListener listenForNorthButton) {
@@ -313,5 +340,13 @@ public class LaunchGameViewGui extends JFrame {
 
     public void    addFightButtonListener(ActionListener listenForFightButton) {
         fightButton.addActionListener(listenForFightButton);
+    }
+
+    public void    addContinueButtonListener(ActionListener listenForContinueButton) {
+        continueButton.addActionListener(listenForContinueButton);
+    }
+
+    public void    addMenuButtonListener(ActionListener listenForMenuButton) {
+        menuButton.addActionListener(listenForMenuButton);
     }
 }

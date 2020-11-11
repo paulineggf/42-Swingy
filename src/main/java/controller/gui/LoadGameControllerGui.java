@@ -42,8 +42,8 @@ public class LoadGameControllerGui {
             for (GameModel saveGame: saveGames) {
                 if (hero.equals(saveGame.hero.getName()))
                 {
-                    new LaunchGameControllerGui(saveGame);
                     view.dispose();
+                    new LaunchGameControllerGui(saveGame);
                 }
             }
         }
@@ -51,8 +51,8 @@ public class LoadGameControllerGui {
 
     public class MenuButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
-            new MenuControllerGui();
             view.dispose();
+            new MenuControllerGui();
         }
     }
 }
