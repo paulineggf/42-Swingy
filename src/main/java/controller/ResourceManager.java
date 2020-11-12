@@ -47,7 +47,33 @@ public class ResourceManager
         }
     }
 
-    public static ArrayList<GameModel>    load(String fileName) throws Exception
+    public static void                      removeGame(String name, String fileName) throws Exception
+    {
+        File tmpDir = new File(fileName);
+        int index;
+
+        if (tmpDir.exists())
+        {
+            try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(Paths.get(fileName)))) {
+                ArrayList<GameModel> game = (ArrayList<GameModel>)ois.readObject();
+                index = 0;
+                for (GameModel saveGame: game) {
+
+                    if (saveGame.hero.getName().equals(name))
+                    {
+                        game.remove(index);
+                        break;
+                    }
+                    index++;
+                }
+                try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(Paths.get(fileName)))) {
+                    oos.writeObject(game);
+                }
+            }
+        }
+    }
+
+    public static ArrayList<GameModel>      load(String fileName) throws Exception
     {
         File tmpDir = new File(fileName);
         if (tmpDir.exists())

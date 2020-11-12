@@ -21,16 +21,12 @@ public class NewGameViewGui extends JFrame {
     JTextField      nameTextField = new JTextField();
     JButton         validationButton = new JButton("OK");
     JButton         menuButton = new JButton("Menu");
+    JLabel          tooManySavedGame = new JLabel("You have too many saved game.");
+    JLabel          tooManySavedGame2 = new JLabel(" Delete before created a new one (5 maximum).");
 
     int resHeight = 900;
 
     public NewGameViewGui() {
-        int x;
-        int y;
-
-        x = 80;
-        y = 100;
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(500, resHeight);
         this.setLocation(0, 0);
@@ -39,7 +35,15 @@ public class NewGameViewGui extends JFrame {
         panel.setBounds(400, 400, 500, resHeight);
         menuButton.setBounds(5, 5, 100, 30);
         panel.add(menuButton);
-        
+
+    }
+
+    public void     newGame() {
+        int x;
+        int y;
+
+        x = 80;
+        y = 100;
         chooseAHeroLabel.setBounds(x, y, 200, 10);
         spidermanRadioButton.setBounds(x, (y += 20), 200, 20);
         supermanRadioButton.setBounds(x, (y += 20), 200, 20);
@@ -74,6 +78,16 @@ public class NewGameViewGui extends JFrame {
         panel.add(validationButton);
 
         this.add(panel);
+        this.setVisible(true);
+    }
+
+    public void     tooManySavedGame() {
+        tooManySavedGame.setBounds(20, 100, 800, 20);
+        tooManySavedGame2.setBounds(20, 130, 800, 20);
+        panel.add(tooManySavedGame);
+        panel.add(tooManySavedGame2);
+        this.add(panel);
+        this.setVisible(true);
     }
 
     public void     addValidationButtonListener(ActionListener listenForValidationButton) {

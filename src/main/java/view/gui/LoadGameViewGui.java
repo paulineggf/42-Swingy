@@ -16,6 +16,8 @@ public class LoadGameViewGui extends JFrame {
     ButtonGroup bgCharacters = new ButtonGroup();
     JButton     validationButton = new JButton("OK");
     JButton     menuButton = new JButton("Menu");
+    JButton     deleteButton = new JButton("Delete");
+    JButton     OKbutton = new JButton("OK");
 
     int resHeight = 900;
 
@@ -39,10 +41,8 @@ public class LoadGameViewGui extends JFrame {
         panel.revalidate();
         panel.repaint();
         panel.setLayout(null);
-       // JLabel label = new JLabel(String.format("%-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s", "Name", "Type", "Level", "Experience", "Artefact", "Attack", "Defense", "Hit Points", "State"));
 
         chooseAHeroLabel.setBounds(x, y, 200, 20);
-        //label.setBounds(x + 28, (y += 50), 800, 20);
         for (GameModel saveGame: saveGames) {
             y += 50;
 
@@ -89,10 +89,7 @@ public class LoadGameViewGui extends JFrame {
 
             JLabel heroState;
             if (saveGame.state == GlobalVariables.GAMEOVER)
-            {
                 heroState = new JLabel("Game Over");
-                radioButton.setEnabled(false);
-            }
             else
                 heroState = new JLabel("In Progress");
 
@@ -102,10 +99,6 @@ public class LoadGameViewGui extends JFrame {
             heroHitPoints.setBounds(x+10+300, y, 100, 20);
             heroState.setBounds(x+10+400, y, 100, 20);
 
-            /*JRadioButton radioButton = new JRadioButton(String.format("%-12.10s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s  %-12s",
-                    saveGame.hero.getName(), saveGame.hero.getType(), saveGame.hero.getLevel(), saveGame.hero.getExperience(),
-                    saveGame.hero.getArtefact(), saveGame.hero.getAttack(), saveGame.hero.getDefense(), saveGame.hero.getHitPoints(), saveGame.state));*/
-            //radioButton.setBounds(x + 10, (y += 30), 800, 20);
             bgCharacters.add(radioButton);
             panel.add(radioButton);
             panel.add(heroType);
@@ -130,10 +123,11 @@ public class LoadGameViewGui extends JFrame {
             panel.add(artefact);
         }
         validationButton.setBounds(x + 10, y + 50, 100, 30);
+        deleteButton.setBounds(x+10+150, y + 50, 100, 30);
         panel.add(validationButton);
+        panel.add(deleteButton);
         panel.add(chooseAHeroLabel);
 
-       // panel.add(label);
         this.add(panel);
     }
 
@@ -154,6 +148,15 @@ public class LoadGameViewGui extends JFrame {
         return "";
     }
 
+    public void     gameOver() {
+        JDialog dialog = new JDialog(this, "Game Over", true);
+        dialog.setLayout(new FlowLayout());
+        dialog.add(new JLabel("You can't play this game, Game over"));
+        dialog.add(OKbutton);
+        dialog.setSize(300, 200);
+        dialog.setVisible(true);
+    }
+
     public void    addValidationButtonListener(ActionListener listenForValidationButton) {
         validationButton.addActionListener(listenForValidationButton);
     }
@@ -162,4 +165,11 @@ public class LoadGameViewGui extends JFrame {
         menuButton.addActionListener(listenForMenuButton);
     }
 
+    public void    addDeleteButtonListener(ActionListener listenForDeleteButton) {
+        deleteButton.addActionListener(listenForDeleteButton);
+    }
+
+    public void    addOKButtonListener(ActionListener listenForOKButton) {
+        OKbutton.addActionListener(listenForOKButton);
+    }
 }

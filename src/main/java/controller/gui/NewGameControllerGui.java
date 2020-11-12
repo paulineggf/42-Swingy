@@ -1,6 +1,7 @@
 package controller.gui;
 
 import controller.GlobalVariables;
+import controller.ResourceManager;
 import controller.console.LaunchGameControllerConsole;
 import model.game.GameModel;
 import model.heros.IHero;
@@ -9,6 +10,7 @@ import view.gui.NewGameViewGui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class NewGameControllerGui {
 
@@ -16,9 +18,19 @@ public class NewGameControllerGui {
 
     NewGameControllerGui()
     {
+        ArrayList<GameModel> saveGames;
+
         view.addMenuButtonListener(new MenuButtonListener());
         view.addValidationButtonListener(new ValidationButtonListener());
-        view.setVisible(true);
+        try {
+            saveGames = ResourceManager.load("./src/main/data/save");
+            if (saveGames != null && saveGames.size() == 5)
+                view.tooManySavedGame();
+            else
+                view.newGame();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public class ValidationButtonListener implements ActionListener {
