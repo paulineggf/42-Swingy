@@ -3,6 +3,7 @@ package view.gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
 
 import static java.lang.Thread.sleep;
 
@@ -10,6 +11,7 @@ public class LaunchGameViewGui extends JFrame {
     JPanel  panel = new JPanel();
     JPanel  gamePanel = new JPanel();
     public JFrame  directionalFrame = new JFrame();
+    public JFrame artefactFrame = new JFrame();
     JButton northButton = new JButton("North");
     JButton southButton = new JButton("South");
     JButton eastButton = new JButton("East");
@@ -18,7 +20,9 @@ public class LaunchGameViewGui extends JFrame {
     JButton fightButton = new JButton("Fight");
     JButton continueButton = new JButton("Continue");
     JButton menuButton = new JButton("Menu");
-
+    JButton changeArtefactButton = new JButton("Change Artefact");
+    JButton artefactValidationButton = new JButton("OK");
+    ButtonGroup     bgArtefact = new ButtonGroup();
 
     int y = 230;
     int resHeight = 900;
@@ -29,6 +33,8 @@ public class LaunchGameViewGui extends JFrame {
         this.setLocation(500, 0);
         directionalFrame.setSize(500, resHeight);
         directionalFrame.setLocation(0, 0);
+        artefactFrame.setSize(500, resHeight);
+        artefactFrame.setLocation(0, 0);
         panel.setLayout(null);
         panel.setBounds(400, 400, 500, resHeight);
         northButton.setBounds(150, 0, 200, 50);
@@ -41,6 +47,7 @@ public class LaunchGameViewGui extends JFrame {
         fightButton.setEnabled(false);
         continueButton.setBounds(250, 200, 100, 30);
         menuButton.setBounds(350, 200, 100, 30);
+        changeArtefactButton.setBounds(250, 240, 200, 30);
         continueButton.setEnabled(false);
         menuButton.setEnabled(false);
         panel.add(northButton);
@@ -51,6 +58,7 @@ public class LaunchGameViewGui extends JFrame {
         panel.add(fightButton);
         panel.add(continueButton);
         panel.add(menuButton);
+        panel.add(changeArtefactButton);
         directionalFrame.add(panel);
         directionalFrame.setVisible(true);
         this.setVisible(true);
@@ -226,6 +234,49 @@ public class LaunchGameViewGui extends JFrame {
         panel.add(label2);
     }
 
+    public void     changeArtefact(String artefact) {
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        JLabel chooseAnArtefactLabel = new JLabel("Choose an artefact:");
+        JRadioButton    weaponRadioButton = new JRadioButton("Weapon +20 attack");
+        JRadioButton    armorRadioButton = new JRadioButton("Armor +20 defense");
+        JRadioButton    helmRadioButton = new JRadioButton("Helm +20 hit points");
+        bgArtefact.add(weaponRadioButton);
+        bgArtefact.add(armorRadioButton);
+        bgArtefact.add(helmRadioButton);
+        if (artefact.equals("Weapon"))
+            weaponRadioButton.setSelected(true);
+        else if (artefact.equals("Armor"))
+            armorRadioButton.setSelected(true);
+        else
+            helmRadioButton.setSelected(true);
+        int y2 = 100;
+        chooseAnArtefactLabel.setBounds(20, y2, 200, 20);
+        weaponRadioButton.setBounds(20, (y2 += 20), 200, 20);
+        armorRadioButton.setBounds(20, (y2 += 20), 200, 20);
+        helmRadioButton.setBounds(20, (y2 += 20), 200, 20);
+        artefactValidationButton.setBounds(20, y2+40, 100, 30);
+        artefactValidationButton.setVisible(true);
+        panel.add(chooseAnArtefactLabel);
+        panel.add(weaponRadioButton);
+        panel.add(armorRadioButton);
+        panel.add(helmRadioButton);
+        panel.add(artefactValidationButton);
+        artefactFrame.add(panel);
+        artefactFrame.setVisible(true);
+    }
+
+    public String   getSelectedArtefact()
+    {
+        for (Enumeration<AbstractButton> buttons = bgArtefact.getElements(); ((Enumeration<?>) buttons).hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+            if (button.isSelected()) {
+                return button.getText().split(" ")[0];
+            }
+        }
+        return "";
+    }
+
     private void    disabledirectionalFramesButtons()
     {
         northButton.setEnabled(false);
@@ -353,4 +404,14 @@ public class LaunchGameViewGui extends JFrame {
     public void    addMenuButtonListener(ActionListener listenForMenuButton) {
         menuButton.addActionListener(listenForMenuButton);
     }
+
+    public void    addChangeArtefactButtonListener(ActionListener listenForChangeArtefactButton) {
+        changeArtefactButton.addActionListener(listenForChangeArtefactButton);
+    }
+
+    public void    addArtefactValidationButtonListener(ActionListener listenForArtefactValidationButton) {
+        artefactValidationButton.addActionListener(listenForArtefactValidationButton);
+    }
+
+
 }

@@ -76,6 +76,10 @@ public class SuperHero implements ISuperHero, Serializable
         levels.level += level;
     }
 
+    public void     setArtefact(String artefact) {
+        this.artefact = artefact;
+    }
+
     // Methods
     public void     getDamage(int damage) {
         powers.hitPoints -= damage + getDefense();

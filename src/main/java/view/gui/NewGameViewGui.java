@@ -7,10 +7,10 @@ import java.util.Enumeration;
 
 public class NewGameViewGui extends JFrame {
     JPanel          panel = new JPanel();
-    JLabel          chooseAHeroLabel = new JLabel("Choose a Hero:");
-    JRadioButton    spidermanRadioButton = new JRadioButton("Spiderman");
-    JRadioButton    supermanRadioButton = new JRadioButton("Superman");
-    JRadioButton    elasticmanRadioButton = new JRadioButton("Elasticman");
+    JLabel          chooseAHeroLabel = new JLabel("Choose a SuperHero:");
+    JRadioButton    spidermanRadioButton = new JRadioButton("Spiderman +30 attack, +10 defense, +100 hit points");
+    JRadioButton    supermanRadioButton = new JRadioButton("Superman +20 attack, +20 defense, +100 hit points");
+    JRadioButton    elasticmanRadioButton = new JRadioButton("Elasticman +60 attack, +20 defense, +60 hit points");
     ButtonGroup     bgHero = new ButtonGroup();
     JLabel          chooseAnArtefactLabel = new JLabel("Choose an artefact:");
     JRadioButton    weaponRadioButton = new JRadioButton("Weapon +20 attack");
@@ -45,9 +45,9 @@ public class NewGameViewGui extends JFrame {
         x = 80;
         y = 100;
         chooseAHeroLabel.setBounds(x, y, 200, 10);
-        spidermanRadioButton.setBounds(x, (y += 20), 200, 20);
-        supermanRadioButton.setBounds(x, (y += 20), 200, 20);
-        elasticmanRadioButton.setBounds(x, (y += 20), 200, 20);
+        spidermanRadioButton.setBounds(x, (y += 20), 800, 20);
+        supermanRadioButton.setBounds(x, (y += 20), 800, 20);
+        elasticmanRadioButton.setBounds(x, (y += 20), 800, 20);
         bgHero.add(spidermanRadioButton);
         bgHero.add(supermanRadioButton);
         bgHero.add(elasticmanRadioButton);
@@ -103,7 +103,7 @@ public class NewGameViewGui extends JFrame {
         for (Enumeration<AbstractButton> buttons = bgHero.getElements(); ((Enumeration<?>) buttons).hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
             if (button.isSelected()) {
-                return button.getText();
+                return button.getText().split(" ")[0];
             }
         }
         return "";

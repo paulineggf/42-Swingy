@@ -6,6 +6,8 @@ public class GlobalVariables {
     public static final int    EAST = 6;
     public static final int    WEST = 4;
 
+    public static final int    WEAPON = 3;
+
     public static final int    FIGHT = 1;
     public static final int    RUN = 2;
 

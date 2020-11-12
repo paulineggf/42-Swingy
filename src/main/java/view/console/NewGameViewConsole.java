@@ -1,5 +1,7 @@
 package view.console;
 
+import javax.swing.*;
+
 public class NewGameViewConsole {
 
     public NewGameViewConsole() {}
@@ -34,5 +36,9 @@ public class NewGameViewConsole {
     public void     error()
     {
         System.out.println("Please try again");
+    }
+
+    public void     tooManySavedGame() {
+        System.out.println("You have too many saved game, delete before created a new one (5 maximum)");
     }
 }

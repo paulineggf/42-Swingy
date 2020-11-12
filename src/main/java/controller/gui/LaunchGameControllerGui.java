@@ -35,6 +35,8 @@ public class LaunchGameControllerGui {
         view.addFightButtonListener(new FightButtonListener());
         view.addMenuButtonListener(new MenuButtonListener());
         view.addContinueButtonListener(new ContinueButtonListener());
+        view.addChangeArtefactButtonListener(new ChangeArtefactButtonListener());
+        view.addArtefactValidationButtonListener(new ArtefactValidationButtonListener());
     }
 
     public class WestButtonListener implements ActionListener {
@@ -81,6 +83,22 @@ public class LaunchGameControllerGui {
         }
     }
 
+    public class ChangeArtefactButtonListener implements ActionListener {
+        public void     actionPerformed(ActionEvent event) {
+            view.artefactFrame.setVisible(true);
+            view.changeArtefact(game.hero.getArtefact());
+        }
+    }
+
+    public class ArtefactValidationButtonListener implements ActionListener {
+        public void     actionPerformed(ActionEvent event) {
+            game.hero.setArtefact(view.getSelectedArtefact());
+            view.artefactFrame.setVisible(false);
+            view.directionalFrame.setVisible(true);
+        }
+    }
+
+
     private void     move()
     {
         char initialVillain;
@@ -92,7 +110,7 @@ public class LaunchGameControllerGui {
                 game.map.getX(),
                 game.map.getY(),
                 initialVillain);
-        if (isEscape() == true)
+        if (isEscape())
         {
             saveGame();
             game.experienceUp(villain);

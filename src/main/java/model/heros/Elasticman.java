@@ -10,7 +10,7 @@ class Elasticman extends SuperHero implements IHero, Serializable
     private String  type = "Elasticman";
     private static final    int     hitPoints = 60;
     private static final    int     attack = 60;
-    private static final    int     defense = 30;
+    private static final    int     defense = 20;
 
     // Constructor
     Elasticman(String name, String artefact)

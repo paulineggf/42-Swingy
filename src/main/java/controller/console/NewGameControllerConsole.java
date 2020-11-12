@@ -1,9 +1,12 @@
 package controller.console;
 
+import controller.ResourceManager;
 import model.game.GameModel;
 import model.heros.IHero;
 import model.heros.SuperHeroFactory;
 import view.console.NewGameViewConsole;
+
+import java.util.ArrayList;
 
 class NewGameControllerConsole {
 
@@ -15,12 +18,27 @@ class NewGameControllerConsole {
         String  artefact;
         String  name;
         IHero   hero;
+        ArrayList<GameModel> saveGames;
 
-        type = chooseSuperHero();
-        artefact = chooseArtefact();
-        name = chooseName();
-        hero = SuperHeroFactory.newSuperHero(type, name, artefact);
-        new LaunchGameControllerConsole(new GameModel(hero));
+        try {
+            saveGames = ResourceManager.load("./src/main/data/save");
+            if (saveGames != null && saveGames.size() == 5)
+            {
+                newGameView.tooManySavedGame();
+                System.console().readLine();
+                new MenuControllerConsole();
+            }
+            else
+            {
+                type = chooseSuperHero();
+                artefact = chooseArtefact();
+                name = chooseName();
+                hero = SuperHeroFactory.newSuperHero(type, name, artefact);
+                new LaunchGameControllerConsole(new GameModel(hero));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private String  chooseSuperHero()

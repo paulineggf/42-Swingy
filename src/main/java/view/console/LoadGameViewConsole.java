@@ -12,7 +12,7 @@ public class LoadGameViewConsole {
         String name;
         String state;
 
-        System.out.println("Choose a SuperHero");
+        System.out.println("Choose a SuperHero: (to delete a game, write the \"[name] + delete\" OR write \"menu\" to come back to the main menu)");
         System.out.println("+------------+------------+------------+------------+------------+------------+------------+------------+-------------+");
         System.out.printf("| %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-11s |\n", "Name", "Type", "Level", "Experience", "Artefact", "Attack", "Defense", "Hit Points", " ");
         for (GameModel saveGame: saveGames) {

@@ -13,4 +13,5 @@ public interface IHero extends ISuperHero, Serializable
     void        attack(IVillains villain);
 
     void        resetHitPoints();
+
 }

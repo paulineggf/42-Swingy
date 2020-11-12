@@ -32,7 +32,7 @@ public class LaunchGameControllerConsole {
                 launchGameView.displayMap(game.pos.getX(), game.pos.getY(), game.map.getX(), game.map.getY(),' ');
             if (newVillain != null)
                 new FightControllerConsole(game, newVillain);
-            if (isEscape() == true)
+            if (isEscape())
                 break;
         }
         if (game.state == GlobalVariables.GAMEOVER)
@@ -75,7 +75,8 @@ public class LaunchGameControllerConsole {
             }
             break;
         }
-        game.moveHero(moveHero);
+        else
+            game.moveHero(moveHero);
     }
 
     private static IVillain createVillain()

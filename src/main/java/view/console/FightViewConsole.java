@@ -2,7 +2,7 @@ package view.console;
 
 public class FightViewConsole {
     public void villainAppear(String villainType) {
-        System.out.println("No! A " + villainType + " appear!");
+        System.out.println("No! A " + villainType + " is appearing!");
     }
 
     public void     fightOrRun()

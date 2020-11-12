@@ -14,8 +14,10 @@ public interface ISuperHero
         // Setters
         public void     setExperience(int XP);
         public void     setLevel(int level);
+        void            setArtefact(String selectedArtefact);
 
 
         // Methods
         public void     getDamage(int damage);
+
 }

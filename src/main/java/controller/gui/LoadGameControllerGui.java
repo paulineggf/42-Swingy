@@ -79,7 +79,6 @@ public class LoadGameControllerGui {
         }
     }
 
-
     public class OKButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
             view.dispose();
