@@ -2,12 +2,13 @@ package view.console;
 
 public class FightViewConsole {
     public void villainAppear(String villainType) {
-        System.out.println("No! A " + villainType + " is appearing!");
+        System.out.println("No! A " + villainType + " appear!");
     }
 
     public void     fightOrRun()
     {
         System.out.println("Would you like to fight (1) or run (2) ?");
+        System.out.println("You can also change of artefact (3)" );
     }
 
     public void     forceToFight()
@@ -42,5 +43,16 @@ public class FightViewConsole {
     public void     levelUp(String heroName, int heroLevel)
     {
         System.out.println(heroName + " is level up to level " + heroLevel + "!");
+    }
+
+    public void     chooseArtefact()
+    {
+        System.out.println("Choose an artefact");
+        System.out.println("+------------+------------+------------+------------+");
+        System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Artefact", "Attack", "Defense", "Hit Points");
+        System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Weapon", "+20", "0", "0");
+        System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Armor", "0", "+20", "0");
+        System.out.printf("| %-10s | %-10s | %-10s | %-10s |\n", "Helm", "0", "0", "+20");
+        System.out.println("+------------+------------+------------+------------+");
     }
 }

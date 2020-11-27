@@ -1,16 +1,21 @@
 package controller.gui;
 
-import controller.GlobalVariables;
 import controller.ResourceManager;
-import controller.console.LaunchGameControllerConsole;
 import model.game.GameModel;
 import model.heros.IHero;
 import model.heros.SuperHeroFactory;
+import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator;
 import view.gui.NewGameViewGui;
 
+import javax.swing.*;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class NewGameControllerGui {
 
@@ -36,16 +41,35 @@ public class NewGameControllerGui {
     public class ValidationButtonListener implements ActionListener {
         public void     actionPerformed(ActionEvent event) {
             String      type;
-            String[]    artefact;
+            String      artefact;
             String      name;
             IHero       hero;
 
-            type = view.getSelectedHero();
-            artefact = view.getSelectedArtefact().split(" ");
-            name = view.getName();
-            hero = SuperHeroFactory.newSuperHero(type, name, artefact[0]);
-            view.dispose();
-            new LaunchGameControllerGui(new GameModel(hero));
+            try {
+                type = view.getSelectedHero();
+                artefact = view.getSelectedArtefact();
+                name = view.getName();
+                ValidatorFactory validatorFactory = Validation.byDefaultProvider()
+                        .configure()
+                        .messageInterpolator(new ParameterMessageInterpolator())
+                        .buildValidatorFactory();
+                Validator validator = validatorFactory.getValidator();
+                hero = SuperHeroFactory.newSuperHero(type, name, artefact);
+                Set<ConstraintViolation<IHero>> constraintViolations = validator.validate(hero);
+                if (constraintViolations.isEmpty()) {
+                    view.dispose();
+                    new LaunchGameControllerGui(new GameModel(hero));
+                }
+                else {
+                    String error = "";
+                    for (ConstraintViolation<IHero> constraintViolation : constraintViolations)
+                        error += constraintViolation.getPropertyPath() + " " + constraintViolation.getMessage() + "\n";
+                    JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 

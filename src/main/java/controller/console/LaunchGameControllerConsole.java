@@ -63,7 +63,7 @@ public class LaunchGameControllerConsole {
         line = "";
         while (true)
         {
-            while (line == "")
+            while (line.equals(""))
                 line = System.console().readLine();
             moveHero = Integer.parseInt(line);
             if (moveHero != GlobalVariables.NORTH
@@ -75,8 +75,7 @@ public class LaunchGameControllerConsole {
             }
             break;
         }
-        else
-            game.moveHero(moveHero);
+        game.moveHero(moveHero);
     }
 
     private static IVillain createVillain()
@@ -93,7 +92,7 @@ public class LaunchGameControllerConsole {
 
     private static void     resultGame()
     {
-        if (game.hero.getLevel() == 5)
+        if (game.hero.getLevel() == 7)
         {
             launchGameView.wonGame(game.hero.getName());
             game.state = GlobalVariables.WON;

@@ -1,6 +1,8 @@
 package view.gui;
 
 import javax.swing.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Enumeration;
@@ -114,7 +116,7 @@ public class NewGameViewGui extends JFrame {
         for (Enumeration<AbstractButton> buttons = bgArtefact.getElements(); ((Enumeration<?>) buttons).hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
             if (button.isSelected()) {
-                return button.getText();
+                return button.getText().split(" ")[0];
             }
         }
         return "";

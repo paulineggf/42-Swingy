@@ -7,15 +7,15 @@ import view.console.FightViewConsole;
 
 public class FightControllerConsole {
 
-    private static GameModel game;
-    private static IVillain villain;
-    private static FightViewConsole fightView = new FightViewConsole();
+    private GameModel game;
+    private IVillain villain;
+    private FightViewConsole fightView = new FightViewConsole();
 
     FightControllerConsole(GameModel game, IVillain villain) {
         int  gamerChoice;
 
-        FightControllerConsole.game = game;
-        FightControllerConsole.villain = villain;
+        this.game = game;
+        this.villain = villain;
         fightView.villainAppear(villain.getType());
         gamerChoice = fightOrRun();
         if (gamerChoice == GlobalVariables.FIGHT)
@@ -23,7 +23,7 @@ public class FightControllerConsole {
 
     }
 
-    private static void launchBattle() {
+    private void launchBattle() {
         while (true) {
             // Hero Attack
             fightView.heroAttack(game.hero.getName(), villain.getType(), game.hero.getAttack());
@@ -54,33 +54,51 @@ public class FightControllerConsole {
         }
     }
 
-    private static int  fightOrRun() {
+    private int  fightOrRun() {
         String  line;
         int     gamerChoice;
 
-        fightView.fightOrRun();
         while (true)
         {
+            fightView.fightOrRun();
             line = "";
             while (line == "")
                 line = System.console().readLine();
             gamerChoice = Integer.parseInt(line);
-            if (gamerChoice != GlobalVariables.RUN
-                && gamerChoice != GlobalVariables.FIGHT)
+            if (gamerChoice == GlobalVariables.RUN) {
+                gamerChoice = randomFight();
+                if (gamerChoice == GlobalVariables.FIGHT)
+                    fightView.forceToFight();
+                else
+                    fightView.runAway();
+            }
+            else if (gamerChoice == GlobalVariables.ARTEFACT)
+            {
+                while (true)
+                {
+                    fightView.chooseArtefact();
+                    String artefact = System.console().readLine();
+                    if (artefact.equals("Weapon") || artefact.equals("Armor") || artefact.equals("Helm"))
+                    {
+                        game.hero.setArtefact(artefact);
+                        break;
+                    }
+                    continue;
+
+                }
                 continue;
+            }
+            if (gamerChoice != GlobalVariables.RUN
+                && gamerChoice != GlobalVariables.FIGHT
+                && gamerChoice != GlobalVariables.ARTEFACT) {
+                continue;
+            }
             break;
-        }
-        if (gamerChoice == GlobalVariables.RUN) {
-            gamerChoice = randomFight();
-            if (gamerChoice == GlobalVariables.FIGHT)
-                fightView.forceToFight();
-            else
-                fightView.runAway();
         }
         return gamerChoice;
     }
 
-    private static int      randomFight() {
+    private int      randomFight() {
         int random;
 
         random = (int) ((Math.random() * 2) + 1);

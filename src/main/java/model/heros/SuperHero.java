@@ -2,6 +2,10 @@ package model.heros;
 
 import model.villains.IVillains;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class SuperHero implements ISuperHero, Serializable
@@ -9,9 +13,13 @@ public class SuperHero implements ISuperHero, Serializable
     private static final long   serialVersionUID = 1L;
 
     // Attributes
+    @NotBlank(message = "must have a value")
     protected String    name;
+    @NotBlank(message = "must have a value")
     protected String    artefact;
+    @Valid
     protected Levels    levels;
+    @Valid
     protected Powers    powers;
 
     // Constructor
@@ -82,7 +90,7 @@ public class SuperHero implements ISuperHero, Serializable
 
     // Methods
     public void     getDamage(int damage) {
-        powers.hitPoints -= damage + getDefense();
+        powers.hitPoints = (powers.hitPoints - damage) + getDefense();
     }
 
     public void     attack(IVillains villain) {

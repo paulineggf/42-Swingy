@@ -96,7 +96,8 @@ public class LaunchGameViewGui extends JFrame {
         for (Component component : components) {
             if (component != runButton && component != fightButton
                 && component != westButton && component != eastButton
-                && component != northButton && component != southButton)
+                && component != northButton && component != southButton
+                && component != continueButton && component != menuButton)
                 panel.remove(component);
         }
     }

@@ -1,5 +1,6 @@
 package model.heros;
 
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class Levels implements Serializable
@@ -20,7 +21,10 @@ public class Levels implements Serializable
     // Builder
     public static class Builder
     {
+        @Size(min=0, message = "Must have a level")
         private int level;
+
+        @Size(min=0, message = "Must have a level")
         private int experience;
 
         public Builder level(int level)

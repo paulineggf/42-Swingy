@@ -1,5 +1,6 @@
 package model.heros;
 
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class Powers implements Serializable
