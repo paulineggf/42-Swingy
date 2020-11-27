@@ -1,5 +1,7 @@
 package model.heros;
 
+import javax.validation.Valid;
+
 public class SuperHeroFactory
 {
     public static IHero newSuperHero(String type, String name, String artefact)

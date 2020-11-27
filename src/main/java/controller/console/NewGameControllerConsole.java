@@ -46,8 +46,8 @@ class NewGameControllerConsole {
         String type;
 
         newGameView.chooseSuperHero();
-        type = "";
         while (true) {
+            type = "";
             while (type.equals(""))
                 type = System.console().readLine();
             if (type.equals("Spiderman") || type.equals("Superman") || type.equals("Elasticman"))
@@ -61,8 +61,8 @@ class NewGameControllerConsole {
         String artefact;
 
         newGameView.chooseArtefact();
-        artefact = "";
         while (true) {
+            artefact = "";
             while (artefact.equals(""))
                 artefact = System.console().readLine();
             if (artefact.equals("Weapon") || artefact.equals("Armor") || artefact.equals("Helm"))

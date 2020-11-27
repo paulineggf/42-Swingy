@@ -49,12 +49,12 @@ public class NewGameControllerGui {
                 type = view.getSelectedHero();
                 artefact = view.getSelectedArtefact();
                 name = view.getName();
+                hero = SuperHeroFactory.newSuperHero(type, name, artefact);
                 ValidatorFactory validatorFactory = Validation.byDefaultProvider()
                         .configure()
                         .messageInterpolator(new ParameterMessageInterpolator())
                         .buildValidatorFactory();
                 Validator validator = validatorFactory.getValidator();
-                hero = SuperHeroFactory.newSuperHero(type, name, artefact);
                 Set<ConstraintViolation<IHero>> constraintViolations = validator.validate(hero);
                 if (constraintViolations.isEmpty()) {
                     view.dispose();
